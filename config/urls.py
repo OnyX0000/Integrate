@@ -6,7 +6,6 @@ from member import views as member_views
 from chatbot import views as chatbot_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-
 urlpatterns = [
     
     path('', member_views.home, name='home'),
