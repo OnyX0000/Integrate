@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link href="{% static 'css/signup.css' %}" rel="stylesheet">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
+    <title>LOWLAW</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header-logo-container">
+            <a href=""><img class="header-logo" src="{% static 'src/logo-header2.png' %}"></a>
+        </div>
+        <div class="header-menu-container">
+            <a href="" class="header-menu">검색엔진</a>
+            <a href="" class="header-menu">AI챗봇</a>
+        </div>
+    </header>
+    <main>
+        <div class="signup-title">
+            <h2>회원가입</h2>
+        </div>
+        <div class="signup-input">
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="input-div">
+                    <p>이름</p>
+                    <input type="text" id="input-name" class="input-name" name="username" autocomplete="username">
+                </div>
+                <div class="input-div">
+                    <p>이메일</p>
+                    <input type="text" id="input-id" class="input-id" name="email" autocomplete="email">
+                </div>
+                <div class="input-div">
+                    <p>비밀번호</p>
+                    <input type="password" id="input-pw" class="input-pw" name="password" autocomplete="new-password">
+                </div>
+                <div class="input-div">
+                    <p>비밀번호 확인</p>
+                    <input type="password" id="input-pw-cf" class="input-pw-cf" name="password_confirm" autocomplete="new-password">
+                </div>
+                <div class="sign-btn-container">
+                    <button class="sign-btn" id="sign-btn">가입하기</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="{% static 'js/signup.js' %}"></script>
+</body>
+</html>
+
+<!-- src 파일 경로 수정
+line 27 {% csrf_token %} 추가 -->

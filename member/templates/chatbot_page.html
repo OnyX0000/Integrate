@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="chat">
+        <!-- 채팅 메시지가 여기에 표시됩니다. -->
+    </div>
+    <form method="POST"> <!-- 폼 요소로 감싼 부분 시작 -->
+        {% csrf_token %} <!-- CSRF 토큰 추가 -->
+        <input type="text" id="user_input" placeholder="어떤 상황인지 설명해 주세요!">
+        <button id="send_button">전송</button>
+    </form> <!-- 폼 요소로 감싼 부분 끝 -->
+</body>
+<script>
+    $(document).ready(function() {
+        $("#send_button").click(function() {
+            var user_input = $("#user_input").val();
+            $.post("/chatbot/", { user_input: user_input }, function(data) {
+                // 응답 처리
+                if (data.response_type === "text") {
+                    // 텍스트 응답
+                    $("#chat").append("<p>user: " + user_input + "</p>");
+                    $("#chat").append("<p>assistant: " + data.content + "</p>");
+                } else if (data.response_type === "button") {
+                    // 버튼 응답
+                    $("#chat").append("<p>user: " + user_input + "</p>");
+                    $("#chat").append("<p>assistant: " + data.content + "</p>");
+                    $.each(data.buttons, function(index, button_text) {
+                        $("#chat").append('<button class="response_button" data-text="' + button_text + '">' + button_text + '</button>');
+                    });
+                }
+            });
+        });
+    });
+
+    // 버튼 클릭 이벤트 처리
+    $(document).on("click", ".response_button", function() {
+        var buttonText = $(this).data("text");
+        // 버튼에 대한 추가 동작을 수행
+    });
+</script>
+</html>

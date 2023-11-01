@@ -1,0 +1,33 @@
+<!-- {% extends 'base.html' %} -->
+
+{% block title %}회원 탈퇴{% endblock %}
+
+{% block content %}
+  <style>
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #FFA500;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+
+  <title>Resign</title>
+  {% if not is_deleted %}
+    <h2>회원 탈퇴하시겠습니까?</h2>
+    <p>탈퇴 시 모든 회원 정보가 삭제됩니다.</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="button" type="submit">탈퇴하기</button>
+    </form>
+  {% else %}
+    <p>회원 탈퇴가 완료되었습니다.</p>
+    <a class="button" href="{% url 'home' %}">홈으로 돌아가기</a>
+  {% endif %}
+{% endblock %}

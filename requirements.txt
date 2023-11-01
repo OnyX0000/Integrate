@@ -1,0 +1,6 @@
+Django
+djangorestframework
+elasticsearch
+elastic-app-search
+sentence-transformers
+social-auth-app-django

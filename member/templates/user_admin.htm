@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원 관리자 페이지</title>
+</head>
+<body>
+    {% if user.is_superuser %}
+    <h1>회원 관리자 페이지</h1>
+    <ul>
+        {% if latest_user %}
+        <li>최근 회원 가입자 정보:</li>
+        <li>이름: {{ latest_user.username }}</li>
+        <li>이메일: {{ latest_user.email }}</li>
+        <li>가입 날짜: {{ latest_user.date_joined }}</li>
+        {% else %}
+        <li>회원 가입자가 없습니다.</li>
+        {% endif %}
+        <hr>
+        <li>모든 회원 정보:</li>
+        {% for user in users %}
+        <li>{{ user.username }} - {{ user.email }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>관리자만 접근할 수 있습니다.</p>
+    {% endif %}
+</body>
+</html>

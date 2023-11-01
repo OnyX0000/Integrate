@@ -1,0 +1,140 @@
+/* 공통 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.ttf') format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf') format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.ttf') format("truetype");
+    font-display: swap;
+}
+body{
+    font-family: 'NanumGothic';
+    height:100vh;
+}
+body div{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom:solid 1px #E6E6E6;
+    padding-top:1.2rem;
+    padding-bottom:1.2rem;
+}
+.header-logo-container{
+    order: 1;
+}
+.header-menu-container{
+    order: 2;
+}
+.header-logo{
+    width : 16rem;
+}
+.header-menu-container a{
+    font-family: KoPubWorldDotum_Pro;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    line-height: normal;
+    text-decoration-line: none;
+    margin : 0.7rem;
+    color:black;
+}
+#wrapper{
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 5rem;
+}
+
+/*여기까지*/
+
+.login-title{
+    display:flex;
+    justify-content: center;
+    margin-top: 10rem;
+    margin-bottom: 4rem;
+}
+h2{
+    font-family: pretendard;
+    font-size: 3.5rem;
+    font-weight: 600;
+}
+.login-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:1.5rem;
+}
+.login-input input{
+    border:1px solid #929292;
+    width:30rem;
+    height:4.5rem;
+}
+.login-input input::placeholder{
+    font-size:1.7rem;
+}
+.login-btn-container{
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:0.8rem;
+}
+.login-btn-container button{
+    display:flex;
+    width:30.5rem;
+    height:5rem;
+    justify-content: center;
+    align-items: center;
+    font-size:1.75rem;
+    color:#FFF;
+    font-weight: 400;
+}
+.login-btn{
+    background-color:black;
+    border:none;
+}
+.signup-btn{
+    background-color:#F90;
+    border:none;
+}
+a{
+    text-decoration-line: none;
+}

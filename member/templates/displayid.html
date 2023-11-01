@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Display User Info</title>
+</head>
+
+<body>
+  <!-- 1번째 줄: "로그인에 성공하셨습니다!" 출력 -->
+  <div>로그인에 성공하셨습니다!</div>
+  
+  <!-- 2번째 줄: 사용자이름과 " 환영합니다!"를 같은 줄에 출력 -->
+  <div id="userName"></div>
+
+  <!-- 3번째 줄: "사용자 이메일:"과 사용자 이메일을 한 줄에 출력 -->
+  <div>사용자 이메일: <span id="userEmail"></span></div>
+  
+  <!-- 로그아웃 버튼 -->
+  <button id="logoutButton">로그아웃</button>
+
+  <script>
+    // 구글 로그인 정보 가져오기
+    const displayName = localStorage.getItem("displayName") || "N/A";
+    const email = localStorage.getItem("email") || "N/A";
+
+    // 사용자 이름과 이메일을 화면에 표시
+    document.getElementById("userName").textContent = `${displayName}님 환영합니다!`;
+    document.getElementById("userEmail").textContent = `${email}`;
+
+    // 로그아웃 버튼 활성화
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      // 로컬 스토리지에서 사용자 정보 제거
+      localStorage.removeItem("displayName");
+      localStorage.removeItem("email");
+
+      // index.html 페이지로 이동
+      window.location.href = "google.html";
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+/* 공통 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 300;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumLight.ttf') format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 500;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumMedium.ttf') format("truetype");
+    font-display: swap;
+}
+@font-face {
+    font-family: 'KoPubWorldDotum';
+    font-weight: 700;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.eot?#iefix') format('embedded-opentype'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.woff2') format('woff2'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.woff') format('woff'),
+        url('https://cdn.jsdelivr.net/gh/webfontworld/kopus/KoPubWorldDotumBold.ttf') format("truetype");
+    font-display: swap;
+}
+body{
+    font-family: 'NanumGothic';
+    height:100vh;
+}
+body div{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom:solid 1px #E6E6E6;
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+.header-logo-container{
+    order: 1;
+}
+.header-menu-container{
+    order: 2;
+}
+.header-logo{
+    width : 8.75rem;
+}
+.header-menu{
+    font-family: KoPubWorldDotum_Pro;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color : black;
+    line-height: normal;
+    text-decoration-line: none;
+    margin : 0.7rem;
+}
+footer{
+    background-color: black;
+    margin-left:-0.5rem;
+    margin-right:-0.5rem;
+}
+footer p{
+    padding-top:3rem;
+    padding-bottom: 3rem;
+    color:white;
+    text-align: center;
+    
+}
+/*여기까지*/
+
+h1{
+    font-family: 'NanumGothicBold';
+    text-align: center;
+    font-size:2.25rem;
+    margin-top:4rem;
+    margin-bottom: 4rem;
+}
+.message_div{
+    height:75vh;
+    background-color: #F4F4F4;
+    margin-left:-0.5rem;
+    margin-right:-0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+.message_container{
+    height:76%;
+}
+.message_input_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:2rem;
+}
+.message_input_container{
+    background-color: white;
+    width:100%;
+    border-radius:1.8rem;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+.message_input{
+    flex-grow:1;
+    border:none;
+    outline:none;
+    width:90%;
+    font-size:20px;
+    resize:none;
+    max-height:3.75rem;
+}
+
+.message_btn{
+    width:2.8rem;
+    height:2.8rem;
+    order:2;
+}
+.message_container{
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+    padding-top:4rem;
+    padding-bottom: 4rem;
+}
+
+.user_message{
+    width:auto;
+    max-width: 70%;
+    padding:1rem 2.5rem;
+    margin-right:auto;
+    border-radius: 0rem 3.125rem 3.125rem 4rem;
+    background:#F90;
+}
+.com_message{
+    width:auto;
+    max-width: 70%;
+    margin-left:auto;
+    padding:1rem 3rem;
+    border-radius: 3.125rem 0rem 3.125rem 4rem;
+    background:white;
+    
+}
+.button_container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.com_message button{
+    width: 100%;
+    padding-top:1.2rem;
+    padding-bottom: 1.2rem;
+    border:none;
+    color:white;
+    background-color: black;
+    margin-bottom:1rem;
+}
+.com_message p{
+    font-family:KoPubWorldDotum_Pro;
+    font-size:1.25rem;
+    font-weight:300;
+}
+.user_message p{
+    font-family:KoPubWorldDotum_Pro;
+    font-size:1.25rem;
+    font-weight: 300;
+}
+.prec_bold {
+    font-weight: bold;
+    display: inline;
+}
+
+.prec_thin {
+    font-weight: normal;
+    display: inline;
+}

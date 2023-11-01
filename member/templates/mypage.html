@@ -1,0 +1,42 @@
+<!-- {% extends 'base.html' %} -->
+
+{% block title %}MyPage{% endblock %}
+
+{% block content %}
+<title>MyPage</title>
+<h2>Mypage</h2>
+<p><strong>이름:</strong> {{ user.username }}</p>
+<p><strong>이메일:</strong> {{ user.email }}</p>
+
+<!-- 수정하기 버튼 -->
+<button id="editButton">수정하기</button>
+
+<!-- 수정 폼 -->
+<div id="editForm" style="display: none;">
+  <form method="post">
+    {% csrf_token %}
+    {{ profile_form.as_p }}
+    <button type="submit">저장</button>
+  </form>
+</div>
+
+<br><br>
+
+<!-- 회원탈퇴 버튼 -->
+<button id="deleteButton">탈퇴하기</button>
+
+<script>
+  const editButton = document.getElementById('editButton');
+  const editForm = document.getElementById('editForm');
+  const deleteButton = document.getElementById('deleteButton');
+
+  editButton.addEventListener('click', () => {
+    editButton.style.display = 'none'; // 수정하기 버튼 숨김
+    editForm.style.display = 'block'; // 수정 폼 표시
+  });
+
+  deleteButton.addEventListener('click', () => {
+    window.location.href = '/user-delete/'; // 회원탈퇴 페이지로 이동
+  });
+</script>
+{% endblock %}
