@@ -62,7 +62,6 @@ function submit(message) {
         })
         .then((data) => {
             addMessage_com(data);
-            console.log(data);
         })
         .catch((error) => console.log(error));
 }
@@ -85,16 +84,16 @@ function addMessage_com(data) {
     com_message.classList.add('com_message');
 
     var answer = document.createElement('p');
-    answer.textContent = data.best_answer;
+    answer.textContent = data.messages;
 
     com_message.appendChild(answer);
-    if (data.legal_info.law != null) {
+    if (data.legal_info.law != '') {
         var com_btn = document.createElement('button');
         com_btn.textContent = "참고 법령 - " + data.legal_info.law + "에 대해 확인하기";
         com_btn.classList.add('com_btn');
         com_message.appendChild(com_btn);
     }
-    if (data.legal_info.prec != null) {
+    if (data.legal_info.prec != '') {
         var com_btn = document.createElement('button');
         com_btn.textContent = "참고 판례 - " + data.legal_info.prec + "에 대해 확인하기";
         com_btn.classList.add('com_btn');
