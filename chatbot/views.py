@@ -39,7 +39,7 @@ def chatbot(request):
     if request.method == 'GET':
         return render(request, 'chatbot.html')
 
-def messsages(request):
+def messages(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         user_input = data.get('user_input', "")
