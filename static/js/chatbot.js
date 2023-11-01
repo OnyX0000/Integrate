@@ -67,7 +67,7 @@ function submit(message) {
         .catch((error) => console.log(error));
 }
 
-function addMessage_user(message) {
+function addMessage_user(message){
     var container = document.getElementById('message_container');
     var user_message = document.createElement('div');
     user_message.classList.add('user_message');
@@ -77,9 +77,10 @@ function addMessage_user(message) {
 
     user_message.appendChild(ask);
     container.appendChild(user_message);
+
 }
 
-function addMessage_com(data) {
+function addMessage_com(data){
     var container = document.getElementById('message_container');
     var com_message = document.createElement('div');
     com_message.classList.add('com_message');
@@ -88,31 +89,101 @@ function addMessage_com(data) {
     answer.textContent = data.best_answer;
 
     com_message.appendChild(answer);
-    if (data.legal_info.law != null) {
-        var com_btn = document.createElement('button');
-        com_btn.textContent = "참고 법령 - " + data.legal_info.law + "에 대해 확인하기";
-        com_btn.classList.add('com_btn');
-        com_message.appendChild(com_btn);
+    if(data.legal_info.law != null){
+        var com_btn_law = document.createElement('button');
+        com_btn_law.textContent = "참고 법령 - "+data.legal_info.law+"에 대해 확인하기";
+        com_btn_law.classList.add('com_btn');
+        com_message.appendChild(com_btn_law);
+        com_btn_law.addEventListener('click', function() {
+            checkLaw(com_btn_law);
+        });
     }
-    if (data.legal_info.prec != null) {
-        var com_btn = document.createElement('button');
-        com_btn.textContent = "참고 판례 - " + data.legal_info.prec + "에 대해 확인하기";
-        com_btn.classList.add('com_btn');
-        com_message.appendChild(com_btn);
+    if(data.legal_info.prec != null){
+        var com_btn_prec = document.createElement('button');
+        com_btn_prec.textContent = "참고 판례 - "+data.legal_info.law+"에 대해 확인하기";
+        com_btn_prec.classList.add('com_btn');
+        com_message.appendChild(com_btn_prec);
+        com_btn_prec.addEventListener('click', function() {
+            checkPrec(com_btn_prec);
+        });
     }
+    container.appendChild(com_message)
+}
+
+function addMessage_com_law(data){
+    var container = document.getElementById('message_container');
+    var com_message = document.createElement('div');
+    com_message.classList.add('com_message');
+
+    var answer = document.createElement('p');
+    answer.textContent = data;
+
+    com_message.appendChild(answer);
+    container.appendChild(com_message)
+}
+function addMessage_com_prec(data){
+    console.log(data);
+    var container = document.getElementById('message_container');
+    var com_message = document.createElement('div');
+    var text_container = document.createElement("div");
+    com_message.classList.add('com_message');
+    
+    for(const key in data){
+        var text = document.createElement("p");
+        text.innerHTML = '<span class="prec_bold">' + key + '</span> ' + '<span class="prec_thin">' + data[key] + '</span>';
+        com_message.appendChild(text)
+    };
     container.appendChild(com_message);
 }
 
-function checkLaw(data) {
-    var law = data.textContent;
-    law = law.replace("참고 법령 - ", '');
-    law = law.replace("에 대해 확인하기", '');
+function checkLaw(data){
+    var asklaw = data.textContent;
+    asklaw = asklaw.replace("참고 법령 - ",'');
+    asklaw = asklaw.replace("에 대해 확인하기"),'';
+
+    fetch('/button_law/',{
+        method:'POST',
+        header:{
+            'Content-Type':'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body:JSON.stringify({
+            law : asklaw
+        })
+    })
+    .then(response=>{
+        if(response.status==200){
+            return response.json();        
+        }
+    }).catch((error)=>console.log(error))
+    .then((data)=>{
+        addMessage_com_law(data.law)
+    })
 }
 
-function checkPrec(data) {
-    var prec = data.textContent;
-    prec = prec.replace("참고 판례 - ", '');
-    prec = prec.replace("에 대해 확인하기", '');
+function checkPrec(data){
+    var askprec = data.textContent;
+    askprec = prec.replace("참고 판례 - ",'');
+    askprec = prec.replace("에 대해 확인하기",'');
+
+    fetch('/button_prec/',{
+        method:'POST',
+        header:{
+            'Content-Type':'application/json',
+            'X-CSRFToken': getCSRFToken()
+        },
+        body:JSON.stringify({
+            prec : askprec
+        })
+    })
+    .then(response=>{
+        if(response.status==200){
+            return response.json();        
+        }
+    }).catch((error)=>console.log(error))
+    .then((data)=>{
+        addMessage_com_prec(data)
+    })
 }
 
 function getCookie(name) {
