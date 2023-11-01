@@ -6,6 +6,7 @@ from allauth.socialaccount import views as socialaccount_views
 from member import views
 from member.views import mypage
 from member.views import CustomAuthToken
+from member.api_views import custom_auth_token, validate_token
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 # from member.views import ChatbotView
 # from member.views import LegalQAFinalViewSet
@@ -24,7 +25,7 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('login/', CustomAuthToken.as_view(), name='custom_auth_token'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # 로그아웃 기능
     path('logout/', views.user_logout, name='logout'),
@@ -36,7 +37,6 @@ urlpatterns = [
     path('messages/', views.messsages, name='messages'),
 
     path('button_law/', views.button_law, name='button_law'),
-
     path('button_prec/', views.button_prec, name='button_prec'),
     
     #챗봇
