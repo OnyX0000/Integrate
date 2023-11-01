@@ -89,36 +89,22 @@ def messages(request):
                     best_answer = re.sub(r'\((.*?)\)', lambda x: x.group(0).replace('.', ' '), best_answer)
                     best_answer = best_answer.replace('.', '.  \n\n')
 
-                    #if related_law:
-                        #related_law_list = related_law.split(",")
-                        #for law in related_law_list:
-                            #best_answer += f"\n📖 {law}"
-                    #else:
-                        #best_answer = None
+                    if related_law:
+                        related_law_list = related_law.split(",")
+                        for law in related_law_list:
+                            request.session["messages"].append({"role": "📖", "content": law})
 
-                    #if related_prec:
-                        #related_prec_list = related_prec.split(",")
-                        #for prec in related_prec_list:
-                            #best_answer += f"\n⚖️ {prec}"
-                    #else:
-                        #best_answer = None
+                    if related_prec:
+                        related_prec_list = related_prec.split(",")
+                        for prec in related_prec_list:
+                            request.session["messages"].append({"role": "⚖️", "content": prec})
 
-                    legal_info = {
-                        "law": related_law,
-                        "prec": related_prec
-                    }
-                
                 else:  # 챗봇의 답변 오류 메세지
-                    best_answer = "질문에 대한 답변을 찾을 수 없어요. 상황에 대해서 정확히 입력해주세요!"
-                    request.session["messages"].append({"role": "assistant", "content": best_answer})
-                    legal_info = {
-                        "law": None,
-                        "prec": None
-                    }
+                    request.session["messages"].append({"role": "assistant", "content": "질문에 대한 답변을 찾을 수 없어요. 상황에 대해서 정확히 입력해주세요!"})
                     
                 response_data = {
-                    "best_answer": best_answer,
-                    "legal_info": legal_info
+                "status": "200",  # 상태를 나타내는 status 값을 추가
+                "messages": request.session.get("messages", [])
                 }
 
                 return JsonResponse(response_data)
@@ -145,7 +131,7 @@ def law_search(data): # App Search에서 참조법령 찾기
     }
 
     # 결과를 문자열로 저장
-    law = ""
+    result_string = ""
 
     engine_name = 'law-content' # 법령검색 App Search
     
@@ -167,25 +153,25 @@ def law_search(data): # App Search에서 참조법령 찾기
                 content = "\n\n".join(content_fields) + "\n"
 
         # 'title' 변수도 result_string에 추가
-        law += f"{title}\n\n"
-        law += f"\n\n {content}\n\n"
-        law += "-" * 40 + "\n"  # 구분선 추가
+        result_string += f"{title}\n\n"
+        result_string += f"\n\n {content}\n\n"
+        result_string += "-" * 40 + "\n"  # 구분선 추가
             
-    return law
+    return result_string
 
 def prec_search(data): # App Search 에서 참조판례 찾기
     engine_name = 'prec-search'
     # 검색 옵션 설정 (score 점수 내림차순 정렬, 상위 1개 결과)
     search_options = {
         "sort": [{"_score": "desc"}],  # score 점수 내림차순 정렬
-        "page": {"size": 1, "current": 1}  # 상위 1개 결과
+        "page": {"size": 1, "current": 1}  # 상위 3개 결과
     }
     # search
     search_query = data
     search_result = client.search(engine_name, search_query, search_options)
 
     # 결과 문자열 초기화
-    prec = ""
+    result_string = ""
 
     for result in search_result['results']:
         score = result['_meta']['score']
@@ -202,47 +188,48 @@ def prec_search(data): # App Search 에서 참조판례 찾기
                 if field == '선고일자':
                     try:
                         date_value = datetime.datetime.strptime(str(int(field_value)), '%Y%m%d').strftime('%Y.%m.%d')
-                        prec += f"{formatted_field_name}: {date_value}\n"
+                        result_string += f"{formatted_field_name}: {date_value}\n"
                     except ValueError:
-                        prec += f"{formatted_field_name}: {field_value}\n"
+                        result_string += f"{formatted_field_name}: {field_value}\n"
                 elif field in ['법원명', '사건종류명']:
                     if field_value:
-                        prec += f"{formatted_field_name}: {field_value}\n"
+                        result_string += f"{formatted_field_name}: {field_value}\n"
                 elif field == '판시사항':
                     if field_value:
                         field_value = field_value.replace('[', '\n[')  # '['가 나오면 '[' 앞에 줄바꿈 추가
-                        prec += "\n\n"+ "-" * 40 + "\n"
-                        prec += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
-                        prec += "-" * 40 + "\n"
+                        result_string += "\n\n"+ "-" * 40 + "\n"
+                        result_string += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
+                        result_string += "-" * 40 + "\n"
                 elif field == '판결요지':
                     if field_value:
                         field_value = field_value.replace('[', '\n[')  # '['가 나오면 '[' 앞에 줄바꿈 추가
-                        prec += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
-                        prec += "-" * 40 + "\n"
+                        result_string += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
+                        result_string += "-" * 40 + "\n"
                 elif field == '참조조문':
                     if field_value:
                         field_value = field_value.replace('/', '\n\n')  # '/'를 기준으로 줄바꿈 후 '/' 삭제
-                        prec += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
-                        prec += "-" * 40 + "\n"
+                        result_string += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
+                        result_string += "-" * 40 + "\n"
                 elif field == '참조판례':
                     if field_value:
                         field_value = field_value.replace('/', '\n\n')  # '/'를 기준으로 줄바꿈 후 '/' 삭제
-                        prec += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
-                        prec += "-" * 40 + "\n"
+                        result_string += f"\n{formatted_field_name}:\n\n{field_value}\n\n"
+                        result_string += "-" * 40 + "\n"
                 elif field == '판례내용':
                     if field_value:
                         field_value = field_value.replace('【', '\n\n【')  # '【'가 나오면 '【' 앞에 줄바꿈 추가
-                        prec += f"{formatted_field_name}:\n\n{field_value}\n\n"
-                        prec += "-" * 40 + "\n"
+                        result_string += f"{formatted_field_name}:\n\n{field_value}\n\n"
+                        result_string += "-" * 40 + "\n"
                 else:
                     if field == '사건명':
-                        prec += f"{formatted_field_name} {field_value}\n\n"  # 사건명 출력 시 콜론을 출력하지 않음
-                        prec += "-" * 40 + "\n"
+                        result_string += f"{formatted_field_name} {field_value}\n\n"  # 사건명 출력 시 콜론을 출력하지 않음
+                        result_string += "-" * 40 + "\n"
                     elif field == '사건번호':
-                        prec += f"{formatted_field_name}: {field_value}\n\n"  # 사건번호 출력 시 콜론을 출력함
-                        prec += "-" * 40 + "\n"
+                        result_string += f"{formatted_field_name}: {field_value}\n\n"  # 사건번호 출력 시 콜론을 출력함
+                        result_string += "-" * 40 + "\n"
                     else:
-                        prec += f"{formatted_field_name}: {field_value}\n"
-                        prec += "-" * 40 + "\n"
+                        result_string += f"{formatted_field_name}: {field_value}\n"
+                        result_string += "-" * 40 + "\n"
 
-    return prec
+    return result_string
+
