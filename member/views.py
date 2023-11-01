@@ -55,6 +55,9 @@ client = Client(
     use_https=True
 )
 
+def home(request):
+    return render(request, 'home.html')
+
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -135,15 +138,6 @@ def cached_model():
     return model
 
 model = cached_model()
-
-def cached_model():
-    model = SentenceTransformer('jhgan/ko-sroberta-multitask')
-    return model
-
-model = cached_model()
-
-def home(request):
-    return render(request, 'main.html')
 
 def chatbot(request):
     if request.method == 'GET':
