@@ -95,7 +95,7 @@ function addMessage_com(data){
         com_btn_law.classList.add('com_btn');
         com_message.appendChild(com_btn_law);
         com_btn_law.addEventListener('click', function() {
-            checkLaw(com_btn_law);
+            checkLaw(data);
         });
     }
     if(data.legal_info.prec != null){
@@ -104,7 +104,7 @@ function addMessage_com(data){
         com_btn_prec.classList.add('com_btn');
         com_message.appendChild(com_btn_prec);
         com_btn_prec.addEventListener('click', function() {
-            checkPrec(com_btn_prec);
+            checkPrec(data);
         });
     }
     container.appendChild(com_message)
@@ -116,7 +116,7 @@ function addMessage_com_law(data){
     com_message.classList.add('com_message');
 
     var answer = document.createElement('p');
-    answer.textContent = data;
+    answer.textContent = data.law_content;
 
     com_message.appendChild(answer);
     container.appendChild(com_message)
@@ -144,8 +144,7 @@ function checkLaw(data){
     fetch('/button_law/',{
         method:'POST',
         header:{
-            'Content-Type':'application/json',
-            'X-CSRFToken': getCSRFToken()
+            'Content-Type':'application/json'
         },
         body:JSON.stringify({
             law : asklaw
@@ -169,8 +168,7 @@ function checkPrec(data){
     fetch('/button_prec/',{
         method:'POST',
         header:{
-            'Content-Type':'application/json',
-            'X-CSRFToken': getCSRFToken()
+            'Content-Type':'application/json'
         },
         body:JSON.stringify({
             prec : askprec
