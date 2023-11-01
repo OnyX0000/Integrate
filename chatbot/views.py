@@ -92,19 +92,33 @@ def messsages(request):
                     if related_law:
                         related_law_list = related_law.split(",")
                         for law in related_law_list:
-                            request.session["messages"].append({"role": "📖", "content": law})
+                            best_answer += f"\n📖 {law}"
+                    #else:
+                        #best_answer = None
 
                     if related_prec:
                         related_prec_list = related_prec.split(",")
                         for prec in related_prec_list:
-                            request.session["messages"].append({"role": "⚖️", "content": prec})
+                            best_answer += f"\n⚖️ {prec}"
+                    #else:
+                        #best_answer = None
 
+                    legal_info = {
+                        "law": related_law,
+                        "prec": related_prec
+                    }
+                
                 else:  # 챗봇의 답변 오류 메세지
-                    request.session["messages"].append({"role": "assistant", "content": "질문에 대한 답변을 찾을 수 없어요. 상황에 대해서 정확히 입력해주세요!"})
+                    best_answer = "질문에 대한 답변을 찾을 수 없어요. 상황에 대해서 정확히 입력해주세요!"
+                    request.session["messages"].append({"role": "assistant", "content": best_answer})
+                    legal_info = {
+                        "law": None,
+                        "prec": None
+                    }
                     
                 response_data = {
-                "status": "200",  # 상태를 나타내는 status 값을 추가
-                "messages": request.session.get("messages", [])
+                    "best_answer": best_answer,
+                    "legal_info": legal_info
                 }
 
                 return JsonResponse(response_data)

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+        <link href = "../css/login.css", rel="stylesheet">
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
+        <title>LOWLAW</title>
+    </head>
+    <body>
+        <header class = "header">
+            <div class = "header-logo-container">
+                <a href=""><img class = "header-logo" src = "../src/logo-header2.png"></a>
+            </div>
+            <div class = "header-menu-container">
+                <a href="" class = "header-menu">검색엔진</a>
+                <a href="" class = "header-menu">AI챗봇</a>
+            </div>
+        </header>
+        <div class = "login-container">
+            <div class = "login-title">
+                <h2>로그인</h2>
+            </div>
+            <div class = "login-input">
+                <input class = "login-id" id = "login-id"type = "text" placeholder="아이디" >
+                <input class = "login-pw" id = "login-pw" type = "text" placeholder="비밀번호">
+            </div>
+            <div class = "login-btn-container">
+                <button class = "login-btn" id = "login-btn" onclick="login()">로그인</button>
+                <a href = ""><button class = "signup-btn" id = "signup-btn">회원가입</button></a>
+            </div>
+        </div>
+    </body>
+    <script src = "../js/login.js"></script>
+</html>
