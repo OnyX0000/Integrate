@@ -132,15 +132,30 @@ def messages(request):
 @csrf_exempt
 def button_law(request):
     if request.method == 'POST':
-        content = request.POST.get('law')  # 'law'를 요청에서 추출
-        result2 = law_search(content)
-    
-        if result2 is not None:
-            return JsonResponse({"data": {"content": result2["law_content"], "status":200}})
-        else:
-            return JsonResponse({"error": "Law not found"}, status=404)
+        try:
+            data = json.loads(request.body)
+            content = data.get('content')  # 'content'를 요청에서 추출
+            print("Received data from frontend: ", content)
+            result2 = law_search(content)
+            
+        #print("Request method: ", request.method)
+        #print("Request body: ", request.body)
+
+        #law = request.POST.get('content')  # 'law'를 요청에서 추출
         
-    return JsonResponse({"error": "Invalid request method"}, status=400)
+        #print("Received data from frontend: ", law)
+        
+        #result2 = law_search(law)
+    
+            if result2 is not None:
+                data = {"content": result2, "status": 200}
+                print(data)
+                return JsonResponse({"data": data})
+            else:
+                return JsonResponse({"error": "Law not found"}, status=404)
+        except json.JSONDecodeError:
+        
+            return JsonResponse({"error": "Invalid request method"}, status=400)
 
 def law_search(law): # App Search에서 참조법령 찾기
     # 검색 옵션 설정 (score 점수 내림차순 정렬, 상위 1개 결과)
@@ -149,8 +164,7 @@ def law_search(law): # App Search에서 참조법령 찾기
         "page": {"size": 1, "current": 1}  # 상위 1개 결과 (페이지 크기와 현재 페이지 번호를 지정)
     }
 
-    # 결과를 딕셔너리로 저장
-    law_data = {"law_content": ""}
+    law_content = ""
 
     engine_name = 'law-content' # 법령검색 App Search
     
@@ -158,25 +172,42 @@ def law_search(law): # App Search에서 참조법령 찾기
     search_query = str(law)
     search_result = client.search(engine_name, search_query, search_options)
 
+    title_fields = []
+    content_fields = []
+
     # 필요한 필드들을 함께 저장
     for result in search_result['results']:
         score = result['_meta']['score']
 
-        # 조항, 호, 목 필드 값이 있는 경우에만 'title' 변수 생성
-        title_fields = [result[field]['raw'] for field in ['law', 'jo', 'hang', 'ho', 'mok'] if field in result and result[field]['raw']]
-        if title_fields:
-            law_data["title"] = " ".join(title_fields)
+        # 조항, 호, 목 필드 값이 있는 경우에만 'title_fields' 변수에 추가
+        for field in ['law', 'jo', 'hang', 'ho', 'mok']:
+            if field in result and result[field]['raw']:
+                title_fields.append(result[field]['raw'])
+
+        # content_fields를 추가
+        for field in ['jo_content', 'hang_content', 'ho_content', 'mok_content']:
+            if field in result and result[field]['raw']:
+                content_fields.append(result[field]['raw'])
+                
+    # title_fields와 content_fields에 값이 있는 경우에 law_content에 추가
+    if title_fields:
+        law_content = "\n\n".join(title_fields)
+    if content_fields:
+        law_content += "\n\n" + "\n\n".join(content_fields) + "\n"
             
-            content_fields = [result[field]['raw'] for field in ['jo_content', 'hang_content', 'ho_content', 'mok_content'] if field in result and result[field]['raw']]
-            if content_fields:
-                law_data["law"] = "\n\n".join(content_fields) + "\n"
-            
-    return law_data
+    #law_data = {"law_content": law_content}
+    
+    print(law_content)
+    
+    return law_content
 
 @csrf_exempt
 def button_prec(request) :
     if request.method == 'POST':
         prec = request.POST.get('prec')  # 'prec'를 요청에서 추출
+        
+        print("Received data from frontend: ", prec)
+        
         result2 = prec_search(prec)
         
         if result2 is not None:   
