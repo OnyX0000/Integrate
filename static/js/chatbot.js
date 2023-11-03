@@ -95,19 +95,19 @@ function addMessage_com(data){
         com_btn_law.classList.add('com_btn');
         com_message.appendChild(com_btn_law);
         com_btn_law.addEventListener('click', function() {
-            checkLaw(data);
+            checkLaw(data.legal_info.law);
         });
     }
     if(data.legal_info.prec != null){
         var com_btn_prec = document.createElement('button');
-        com_btn_prec.textContent = "참고 판례 - "+data.legal_info.law+"에 대해 확인하기";
+        com_btn_prec.textContent = "참고 판례 - "+data.legal_info.prec+"에 대해 확인하기";
         com_btn_prec.classList.add('com_btn');
         com_message.appendChild(com_btn_prec);
         com_btn_prec.addEventListener('click', function() {
-            checkPrec(data);
+            checkPrec(data.legal_info.prec);
         });
     }
-    container.appendChild(com_message)
+    container.appendChild(com_message);
 }
 
 function addMessage_com_law(data){
@@ -121,6 +121,7 @@ function addMessage_com_law(data){
     com_message.appendChild(answer);
     container.appendChild(com_message)
 }
+
 function addMessage_com_prec(data){
     console.log(data);
     var container = document.getElementById('message_container');
@@ -128,26 +129,34 @@ function addMessage_com_prec(data){
     var text_container = document.createElement("div");
     com_message.classList.add('com_message');
     
-    for(const key in data){
-        var text = document.createElement("p");
-        text.innerHTML = '<span class="prec_bold">' + key + '</span> ' + '<span class="prec_thin">' + data[key] + '</span>';
-        com_message.appendChild(text)
-    };
+    if (data && typeof data === 'object') {
+        for(const key in data){
+            if (data.hasOwnProperty(key)) {
+                var text = document.createElement("p");
+                text.innerHTML = '<span class="prec_bold">' + key + '</span> ' + '<span class="prec_thin">' + data[key] + '</span>';
+                com_message.appendChild(text)
+            }
+
+        }
+    } else {
+        console.error('Invalid data:', data);
+        return;
+    }
+
     container.appendChild(com_message);
 }
 
-function checkLaw(data){
-    var asklaw = data.textContent;
-    asklaw = asklaw.replace("참고 법령 - ",'');
-    asklaw = asklaw.replace("에 대해 확인하기"),'';
+function checkLaw(content){
+    content = content.replace("참고 법령 - ",'');
+    content = content.replace("에 대해 확인하기", '');
 
     fetch('/button_law/',{
         method:'POST',
-        header:{
+        headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify({
-            law : asklaw
+            law : content
         })
     })
     .then(response=>{
@@ -156,18 +165,18 @@ function checkLaw(data){
         }
     }).catch((error)=>console.log(error))
     .then((data)=>{
-        addMessage_com_law(data.law)
-    })
+        addMessage_com_law(data);
+    });
 }
 
 function checkPrec(data){
-    var askprec = data.textContent;
-    askprec = prec.replace("참고 판례 - ",'');
-    askprec = prec.replace("에 대해 확인하기",'');
+    var askprec = data;
+    askprec = askprec.replace("참고 판례 - ",'');
+    askprec = askprec.replace("에 대해 확인하기",'');
 
     fetch('/button_prec/',{
         method:'POST',
-        header:{
+        headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify({
@@ -177,11 +186,18 @@ function checkPrec(data){
     .then(response=>{
         if(response.status==200){
             return response.json();        
+        } else {
+            console.log("Error:", response.status);
         }
-    }).catch((error)=>console.log(error))
-    .then((data)=>{
-        addMessage_com_prec(data)
     })
+    .then((data)=>{
+        if (data && data.prec_content) {
+            addMessage_com_prec(data.prec_content);
+        } else {
+            console.log("No 'prec_content' found in response data.");
+        }
+    })
+    .catch((error)=>console.log(error));
 }
 
 function getCookie(name) {
