@@ -111,7 +111,6 @@ function addMessage_com(data){
 }
 
 function addMessage_com_law(data){
-    
     var container = document.getElementById('message_container');
     var com_message = document.createElement('div');
     com_message.classList.add('com_message');
@@ -130,7 +129,7 @@ function addMessage_com_prec(data){
     com_message.classList.add('com_message');
     
     if (data && typeof data === 'object') {
-        for(const key in data.prec_content){
+        for(const key in data){
             if (data.hasOwnProperty(key)) {
                 var text = document.createElement("p");
                 text.innerHTML = '<span class="prec_bold">' + key + '</span> ' + '<span class="prec_thin">' + data[key] + '</span>';
@@ -141,9 +140,8 @@ function addMessage_com_prec(data){
         console.error('Invalid data:', data);
         return;
     }
-    if (data.prec_content != null){
-        container.appendChild(com_message);
-    }
+    container.appendChild(com_message);
+
 }
 
 function checkLaw(law){
@@ -195,9 +193,8 @@ function checkPrec(content){
         }
     })
     .then((data)=>{
-        if (data && data.prec_content) {
-            console.log(data)
-            addMessage_com_prec(data);
+        if (data && data.data.prec_content) {
+            addMessage_com_prec(data.data.prec_content);
         } else {
             console.log("No 'prec_content' found in response data.");
         }

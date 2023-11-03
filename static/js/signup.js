@@ -40,31 +40,21 @@ function signUp(){
                 email: userID
             })
         })
-        .then(response => {
-    if (response.status === 201) {
-        return response.json();
-    } else if (response.status === 403) {
-        // Handle CSRF token length error 수정
-        console.log("CSRF 토큰의 길이가 잘못되었습니다.");
-    } else if (response.status === 401) {
-        alert("잘못된 아이디 혹은 비밀번호를 입력하셨습니다.");
-    } else {
-        throw new Error('에러 발생');
-    }
-})
-.catch(error => {
-    console.log(error);
-})
-.then(data => {
-    if (data && data.message === '로그인 성공') {
-        localStorage.setItem('access_token', data.access_token);
-        localStorage.setItem('expired_in', data.expired_in);
-        alert("로그인 성공!");
-        window.location.href = '../html/login.html';
-    } else {
-        console.error('로그인 실패 또는 잘못된 응답');
-    }
-});
-
+        .then(response=>{
+            if(response.statur==200){
+                return response.json;
+            }
+            else if(response.status==400){
+                alert("이미 가입된 이메일 입니다.");
+            }else{
+                throw new Error('에러 발생');
+            }
+        }).catch((error)=>console.log(error))
+        .then((data)=>{
+            if(data.message=='회원가입 성공'){
+                alert('회원가입이 완료되었습니다.')
+                window.location.href='../html/login.html'
+            }
+        })
     }
 }

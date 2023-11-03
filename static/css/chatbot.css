@@ -64,21 +64,16 @@ header{
 .header-logo{
     width : 8.75rem;
 }
-.header-menu-container a{
+.header-menu{
     font-family: KoPubWorldDotum_Pro;
     font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    color : black;
     line-height: normal;
     text-decoration-line: none;
     margin : 0.7rem;
-}
-.header-chatbot{
-    color:#F90;
-}
-.header-search{
-    color:black;
 }
 footer{
     background-color: black;
@@ -102,7 +97,7 @@ h1{
     margin-bottom: 4rem;
 }
 .message_div{
-    height:85vh;
+    height:75vh;
     background-color: #F4F4F4;
     margin-left:-0.5rem;
     margin-right:-0.5rem;
@@ -150,27 +145,32 @@ h1{
 }
 
 .user_message{
-    width: 70%;
+    width:auto;
+    max-width: 70%;
     padding:1rem 2.5rem;
     margin-right:auto;
     border-radius: 0rem 3.125rem 3.125rem 4rem;
     background:#F90;
 }
 .com_message{
-    width:70%;
+    width:auto;
+    max-width: 70%;
     margin-left:auto;
     padding:1rem 3rem;
     border-radius: 3.125rem 0rem 3.125rem 4rem;
     background:white;
+    
+}
+.button_container{
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .com_message button{
-    width: 95%;
-    padding-top:1rem;
-    padding-bottom: 1rem;
+    width: 100%;
+    padding-top:1.2rem;
+    padding-bottom: 1.2rem;
     border:none;
     color:white;
     background-color: black;
@@ -185,4 +185,13 @@ h1{
     font-family:KoPubWorldDotum_Pro;
     font-size:1.25rem;
     font-weight: 300;
+}
+.prec_bold {
+    font-weight: bold;
+    display: inline;
+}
+
+.prec_thin {
+    font-weight: normal;
+    display: inline;
 }
