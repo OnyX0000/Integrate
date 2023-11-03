@@ -111,21 +111,22 @@ function addMessage_com(data){
 }
 
 function addMessage_com_law(data){
+    
     var container = document.getElementById('message_container');
     var com_message = document.createElement('div');
     com_message.classList.add('com_message');
 
     var answer = document.createElement('p');
     answer.textContent = data.content;
-
-    com_message.appendChild(answer);
-    container.appendChild(com_message)
+    if (data.content != ''){
+        com_message.appendChild(answer);
+        container.appendChild(com_message)
+    }
 }
 
 function addMessage_com_prec(data){
     var container = document.getElementById('message_container');
     var com_message = document.createElement('div');
-    var text_container = document.createElement("div");
     com_message.classList.add('com_message');
     
     if (data && typeof data === 'object') {
@@ -140,12 +141,12 @@ function addMessage_com_prec(data){
         console.error('Invalid data:', data);
         return;
     }
-
-    container.appendChild(com_message);
+    if (data.prec_content != null){
+        container.appendChild(com_message);
+    }
 }
 
 function checkLaw(law){
-    console.log("법령 검색 : ",law)
     fetch('/button_law/',{
         method:'POST',
         headers:{
@@ -166,7 +167,7 @@ function checkLaw(law){
     .then((data)=>{
         if(data){
             console.log(data)
-            addMessage_com_law(data);
+            addMessage_com_law(data.data);
         } else {
             console.log("No 'law_content' found in response data.")
         }
