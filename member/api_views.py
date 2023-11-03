@@ -15,33 +15,7 @@ from allauth.socialaccount.helpers import render_authentication_error
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-# 토큰 발급
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def custom_auth_token(request):
-    if request.method == 'POST':
-        email = request.data.get('email')
-        password = request.data.get('password')
-        print("email:", email)   
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            token, created = Token.objects.get_or_create(user=user)
-            return JsonResponse({'access_token': token.key, 'expired_in': token.get_expires()})
-        else:
-            return JsonResponse({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
-
-
-#토큰 유효성 검증
-def validate_token(token_key):
-    try:
-        token = Token.objects.get(key=token_key)
-        return token.user  # 토큰이 유효한 경우 해당 사용자 반환
-    except Token.DoesNotExist:
-        return None  # 토큰이 유효하지 않은 경우 None 반환
-
 # 로그인 API
-@api_view(['POST'])
-@permission_classes([AllowAny])
 def api_login(request):
     if request.method == 'POST':
         email = request.data.get('email')
