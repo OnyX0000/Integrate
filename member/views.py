@@ -141,5 +141,3 @@ def user_delete(request):
         return render(request, 'user_delete.html', {'is_deleted': True})
     
     return render(request, 'user_delete.html', {'is_deleted': False})
-
-# pull reqeuest test

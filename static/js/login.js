@@ -8,7 +8,7 @@ function login() {
         // CSRF 토큰을 직접 가져오기
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
-        fetch('/login/', {
+        fetch('/api/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,9 +31,9 @@ function login() {
         })
         .then(data => {
             console.log(data)
-            if (data && data.token) {
-                localStorage.setItem('access_token', data.token);
-                localStorage.setItem('expired_in', data.expired_in);
+            if (data && data.access_token) {
+                localStorage.setItem('access_token', data.access_token);
+                localStorage.setItem('expired_in', data.access_token_expires);
                 alert("로그인 성공!");
                 window.location.href = '/home/'; // 홈페이지 URL로 변경
             } else {

@@ -2,9 +2,11 @@ from django.urls import path, include
 from django.contrib import admin
 from allauth.socialaccount.providers.oauth2.urls import default_urlpatterns
 from allauth.socialaccount import views as socialaccount_views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from member import views as member_views
 from chatbot import views as chatbot_views
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from member.api_views import api_login, api_register
 
 urlpatterns = [
     
@@ -24,6 +26,10 @@ urlpatterns = [
     path('button_law/', chatbot_views.button_law, name='button_law'),
     path('button_prec/', chatbot_views.button_prec, name='button_prec'),
     path('chatbot/', chatbot_views.chatbot, name='chatbot'),
+
+    # api_urls 
+    path('api/login/', api_login, name='api_login'),
+    path('api/register/', api_register, name='api_register'),
 
     # 로그인 성공 시 홈 화면으로 리다이렉트하는 URL 패턴 추가
     path('home/', member_views.home, name='home_redirect'),
