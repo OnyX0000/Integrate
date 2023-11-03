@@ -206,9 +206,9 @@ def button_prec(request) :
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            prec = data.get('prec')  # 'content'를 요청에서 추출
+            prec = data.get('prec')
             print("Received data from frontend: ", prec)
-            result2 = law_search(prec)
+            result2 = prec_search(prec)
             
         #prec = request.POST.get('prec')  # 'prec'를 요청에서 추출
         
@@ -227,69 +227,61 @@ def button_prec(request) :
             return JsonResponse({"error": "Invalid request method"}, status=400)
 
 def prec_search(prec): # App Search 에서 참조판례 찾기
+    engine_name = 'prec-search'
     # 검색 옵션 설정 (score 점수 내림차순 정렬, 상위 1개 결과)
     search_options = {
         "sort": [{"_score": "desc"}],  # score 점수 내림차순 정렬
         "page": {"size": 1, "current": 1}  # 상위 1개 결과
     }
 
-    # 결과를 딕셔너리로 저장
-    prec_data = {}
-    
-    engine_name = 'prec-search'
-    
-    # search
-    search_query = f'precise_query="{prec}"'
+    search_query = prec
     search_result = client.search(engine_name, search_query, search_options)
 
+    # 결과를 딕셔너리로 저장
+    result_dict = {}
+    
     for result in search_result['results']:
         score = result['_meta']['score']
 
-        # 필요한 필드들을 함께 출력
-        fields_to_print = ['사건명', '사건번호', '선고일자', '법원명', '사건종류명', '판시사항', '판결요지', '참조조문', '참조판례', '판례내용']
-        
-        # 결과 문자열 생성
-        for field in fields_to_print:
-            if field in result:
-                field_value = result[field]['raw']
-                formatted_field_name = f"{field}"  # 필드명 굵은 글씨
-                if not field_value:
-                    continue
-                if field == '선고일자':
-                    try:
-                        date_value = datetime.datetime.strptime(str(int(field_value)), '%Y%m%d').strftime('%Y.%m.%d')
-                        prec_data[field] = date_value
-                    except ValueError:
-                        prec_data[field] = field_value
-                elif field in ['법원명', '사건종류명']:
-                    if field_value:
-                        prec_data[field] = field_value
-                elif field == '판시사항':
-                    if field_value:
-                        field_value = field_value.replace('[', '\n[')  # '['가 나오면 '[' 앞에 줄바꿈 추가
-                        prec_data[field] = "\n\n" + "-" * 40 + "\n" + f"\n{formatted_field_name}:\n\n{field_value}\n\n" + "-" * 40
-                elif field == '판결요지':
-                    if field_value:
-                        field_value = field_value.replace('[', '\n[')  # '['가 나오면 '[' 앞에 줄바꿈 추가
-                        prec_data[field] = f"\n{formatted_field_name}:\n\n{field_value}\n\n" + "-" * 40
-                elif field == '참조조문':
-                    if field_value:
-                        field_value = field_value.replace('/', '\n\n')  # '/'를 기준으로 줄바꿈 후 '/' 삭제
-                        prec_data[field] = f"\n{formatted_field_name}:\n\n{field_value}\n\n" + "-" * 40
-                elif field == '참조판례':
-                    if field_value:
-                        field_value = field_value.replace('/', '\n\n')  # '/'를 기준으로 줄바꿈 후 '/' 삭제
-                        prec_data[field] = f"\n{formatted_field_name}:\n\n{field_value}\n\n" + "-" * 40
-                elif field == '판례내용':
-                    if field_value:
-                        field_value = field_value.replace('【', '\n\n【')  # '【'가 나오면 '【' 앞에 줄바꿈 추가
-                        prec_data[field] = f"{formatted_field_name}:\n\n{field_value}\n\n" + "-" * 40
-                else:
-                    if field == '사건명':
-                        prec_data[field] = f"{formatted_field_name} {field_value}\n\n"  # 사건명 출력 시 콜론을 출력하지 않음
-                    elif field == '사건번호':
-                        prec_data[field] = f"{formatted_field_name}: {field_value}\n\n"  # 사건번호 출력 시 콜론을 출력함
-                    else:
-                        prec_data[field] = f"{formatted_field_name}: {field_value}\n"
-        
-    return prec_data
+    fields_to_print = ['사건명', '사건번호', '선고일자', '법원명', '사건종류명', '판시사항', '판결요지', '참조조문', '참조판례', '판례내용']
+
+    for field in fields_to_print:
+        if field in result:
+            field_value = result[field]['raw']
+            if not field_value:
+                continue
+            if field == '선고일자':
+                try:
+                    date_value = datetime.datetime.strptime(str(int(field_value)), '%Y%m%d').strftime('%Y.%m.%d')
+                    result_dict[field] = f"{date_value}"
+                except ValueError:
+                    result_dict[field] = field_value
+            elif field in ['법원명', '사건종류명']:
+                result_dict[field] = field_value
+            elif field == '판시사항':
+                if field_value:
+                    field_value = field_value.replace('[', '\n[')
+                    result_dict[field] = field_value
+            elif field == '판결요지':
+                if field_value:
+                    field_value = field_value.replace('[', '\n[')
+                    result_dict[field] = field_value
+            elif field == '참조조문':
+                if field_value:
+                    field_value = field_value.replace('/', '\n\n')
+                    result_dict[field] = field_value
+            elif field == '참조판례':
+                if field_value:
+                    field_value = field_value.replace('/', '\n\n')
+                    result_dict[field] = field_value
+            elif field == '판례내용':
+                if field_value:
+                    field_value = field_value.replace('【', '\n\n【')
+                    result_dict[field] = field_value
+            else:
+                result_dict[field] = field_value
+
+    # 결과를 JSON 문자열로 변환
+    result_json = result_dict
+
+    return result_json
