@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
+    'corsheaders',
     # 'config',
 ]
 
@@ -47,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -164,3 +166,12 @@ APPEND_SLASH = False
 
 # CSRF_COOKIE_SECURE = False
 # CSRF_USE_SESSIONS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8000",  # 클라이언트의 주소로 변경해야 함
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+]
