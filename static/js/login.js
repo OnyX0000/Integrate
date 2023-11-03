@@ -30,9 +30,9 @@ function login() {
             }
         })
         .then(data => {
-            if (data && data.token) {
+            if (data && data.access.token) {
                 // 토큰을 localStorage에 저장
-                localStorage.setItem('access_token', data.token);
+                localStorage.setItem('access_token', data.access.token);
                 localStorage.setItem('expired_in', data.expired_in);
                 alert("로그인 성공!");
                 window.location.href = '../html/home.html';
