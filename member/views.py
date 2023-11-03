@@ -39,6 +39,7 @@ import datetime
 from social_django.views import complete
 from .models import LegalQAFinal
 from .serializers import LegalQAFinalSerializer
+from datetime import datetime, timedelta 
 
 admin.site.register(Token)
 
@@ -80,13 +81,30 @@ def user_login(request):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, '로그인 성공!') 
-            return redirect('home_redirect')  # 로그인 성공 시 'home' 주소로 이동
+            token, created = Token.objects.get_or_create(user=user)
+            token_key = token.key
+            expires_at = token.created + timedelta(days=1)
+            response_data = {
+                'access_token': token_key,
+                'access_token_expires': expires_at.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+            }
+            return JsonResponse(response_data)
         else:
-            messages.error(request, '이메일과 비밀번호가 일치하지 않습니다.')  # 에러 메시지 출력
-            return redirect('login')  # 로그인 실패 시 다시 로그인 페이지로 이동
-    return render(request, 'login.html')
+            return JsonResponse({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
+    elif request.method == 'GET':
+        return render(request, 'login.html')
+    return JsonResponse({'error': 'POST 요청이 필요합니다.'}, status=400)
 
+class CustomAuthToken(ObtainAuthToken):
+    def custom_auth_token(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        token, created = Token.objects.get_or_create(user=user)
+
+        return Response({'token': token.key})
 
 @login_required
 def user_logout(request):
@@ -123,14 +141,3 @@ def user_delete(request):
         return render(request, 'user_delete.html', {'is_deleted': True})
     
     return render(request, 'user_delete.html', {'is_deleted': False})
-
-    
-class CustomAuthToken(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key})

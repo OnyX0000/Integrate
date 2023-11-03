@@ -30,12 +30,11 @@ function login() {
             }
         })
         .then(data => {
-            if (data && data.access.token) {
-                // 토큰을 localStorage에 저장
-                localStorage.setItem('access_token', data.access.token);
+            if (data && data.token) {
+                localStorage.setItem('access_token', data.token);
                 localStorage.setItem('expired_in', data.expired_in);
                 alert("로그인 성공!");
-                window.location.href = '../html/home.html';
+                window.location.href = '/home/'; // 홈페이지 URL로 변경
             } else {
                 console.log("로그인 실패 또는 데이터 오류");
             }

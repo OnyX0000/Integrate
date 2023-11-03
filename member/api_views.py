@@ -22,13 +22,14 @@ def custom_auth_token(request):
     if request.method == 'POST':
         email = request.data.get('email')
         password = request.data.get('password')
+        print("email:", email)   
         user = authenticate(request, username=email, password=password)
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
-            # data 키에 'token'을 사용하여 토큰 반환
             return JsonResponse({'access_token': token.key, 'expired_in': token.get_expires()})
         else:
             return JsonResponse({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
+
 
 #토큰 유효성 검증
 def validate_token(token_key):
@@ -48,10 +49,9 @@ def api_login(request):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
-            #login(request, user)
-            return JsonResponse({'message': '로그인 성공'})
+            return Response({'access_token': token.key, 'expired_in': token.get_expires()})
         else:
-            return JsonResponse({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
+            return Response({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
 
 # 로그아웃 API
 @api_view(['POST'])
