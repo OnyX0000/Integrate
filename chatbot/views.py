@@ -204,18 +204,27 @@ def law_search(law): # App Search에서 참조법령 찾기
 @csrf_exempt
 def button_prec(request) :
     if request.method == 'POST':
-        prec = request.POST.get('prec')  # 'prec'를 요청에서 추출
+        try:
+            data = json.loads(request.body)
+            prec = data.get('prec')  # 'content'를 요청에서 추출
+            print("Received data from frontend: ", prec)
+            result2 = law_search(prec)
+            
+        #prec = request.POST.get('prec')  # 'prec'를 요청에서 추출
         
-        print("Received data from frontend: ", prec)
+        #print("Received data from frontend: ", prec)
         
-        result2 = prec_search(prec)
+        #result2 = prec_search(prec)
         
-        if result2 is not None:   
-            return JsonResponse({"data": {"prec_content": result2, "status": 200}})
-        else:
-            return JsonResponse({"error": "Prec not found"}, status=404)
+            if result2 is not None:
+                data = {"prec_content": result2, "status": 200}
+                print(data)
+                return JsonResponse({"data": data})
+            else:
+                return JsonResponse({"error": "Prec not found"}, status=404)
+        except json.JSONDecodeError:
         
-    return JsonResponse({"error": "Invalid request method"}, status=400)
+            return JsonResponse({"error": "Invalid request method"}, status=400)
 
 def prec_search(prec): # App Search 에서 참조판례 찾기
     # 검색 옵션 설정 (score 점수 내림차순 정렬, 상위 1개 결과)

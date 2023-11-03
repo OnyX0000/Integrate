@@ -144,34 +144,37 @@ function addMessage_com_prec(data){
     container.appendChild(com_message);
 }
 
-function checkLaw(content){
-    content = content.replace("참고 법령 - ",'');
-    content = content.replace("에 대해 확인하기", '');
-
+function checkLaw(law){
+    console.log("법령 검색 : ",law)
     fetch('/button_law/',{
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify({
-            law : content
+            content:law
         })
     })
     .then(response=>{
         if(response.status==200){
             return response.json();        
         }
-    }).catch((error)=>console.log(error))
+        else{
+            console.log("Error:",response.status);
+        }
+    })
     .then((data)=>{
-        console.log(data)
-        addMessage_com_law(data);
-    });
+        if(data){
+            console.log(data)
+            addMessage_com_law(data);
+        } else {
+            console.log("No 'law_content' found in response data.")
+        }
+    })
+    .catch((error)=>console.log(error))
 }
 
-function checkPrec(data){
-    var askprec = data;
-    askprec = askprec.replace("참고 판례 - ",'');
-    askprec = askprec.replace("에 대해 확인하기",'');
+function checkPrec(content){
 
     fetch('/button_prec/',{
         method:'POST',
@@ -179,7 +182,7 @@ function checkPrec(data){
             'Content-Type':'application/json'
         },
         body:JSON.stringify({
-            prec : askprec
+            prec : content
         })
     })
     .then(response=>{
@@ -187,6 +190,7 @@ function checkPrec(data){
             return response.json();        
         } else {
             console.log("Error:", response.status);
+            throw new Error("Server response error");
         }
     })
     .then((data)=>{
