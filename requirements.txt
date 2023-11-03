@@ -4,3 +4,4 @@ elasticsearch
 elastic-app-search
 sentence-transformers
 social-auth-app-django
+django-cors-headers
