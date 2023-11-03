@@ -116,27 +116,25 @@ function addMessage_com_law(data){
     com_message.classList.add('com_message');
 
     var answer = document.createElement('p');
-    answer.textContent = data.law_content;
+    answer.textContent = data.content;
 
     com_message.appendChild(answer);
     container.appendChild(com_message)
 }
 
 function addMessage_com_prec(data){
-    console.log(data);
     var container = document.getElementById('message_container');
     var com_message = document.createElement('div');
     var text_container = document.createElement("div");
     com_message.classList.add('com_message');
     
     if (data && typeof data === 'object') {
-        for(const key in data){
+        for(const key in data.prec_content){
             if (data.hasOwnProperty(key)) {
                 var text = document.createElement("p");
                 text.innerHTML = '<span class="prec_bold">' + key + '</span> ' + '<span class="prec_thin">' + data[key] + '</span>';
                 com_message.appendChild(text)
             }
-
         }
     } else {
         console.error('Invalid data:', data);
@@ -165,6 +163,7 @@ function checkLaw(content){
         }
     }).catch((error)=>console.log(error))
     .then((data)=>{
+        console.log(data)
         addMessage_com_law(data);
     });
 }
@@ -192,7 +191,8 @@ function checkPrec(data){
     })
     .then((data)=>{
         if (data && data.prec_content) {
-            addMessage_com_prec(data.data.prec_content);
+            console.log(data)
+            addMessage_com_prec(data);
         } else {
             console.log("No 'prec_content' found in response data.");
         }
