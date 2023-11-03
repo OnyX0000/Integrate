@@ -5,39 +5,39 @@ function login() {
     if (userID === '' || userPW === '') {
         alert("아이디와 비밀번호를 모두 입력해주세요.");
     } else {
-        // CSRF 토큰을 직접 가져오기
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
-        fetch('/api/login/', {
+        fetch('/api/login/', { // /api/login/
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken,
             },
             body: JSON.stringify({
-                email: userID,
-                password: userPW,
+                "email": userID,
+                "password": userPW, // "둘 다 따옴표 안에 수정"
             }),
         })
         .then(response => {
             if (response.status === 200) {
                 return response.json();
             } else if (response.status === 401) {
-                alert("잘못된 아이디 혹은 비밀번호를 입력하셨습니다.");
-                console.log('로그인 실패')
+                alert(data.error); 
+                console.log('Login Fail')
             } else {
-                throw new Error('에러 발생');
+                throw new Error('ERROR');
             }
         })
         .then(data => {
             console.log(data)
             if (data && data.access_token) {
+                console.log("Login Success");
                 localStorage.setItem('access_token', data.access_token);
                 localStorage.setItem('expired_in', data.access_token_expires);
-                alert("로그인 성공!");
-                window.location.href = '/home/'; // 홈페이지 URL로 변경
+                alert("Login SUCCESS !");
+                window.location.href = '/home/';
             } else {
-                console.log("로그인 실패 또는 데이터 오류");
+                console.log("Login Fail or Data error");
             }
         })
         .catch(error => {

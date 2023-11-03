@@ -23,9 +23,13 @@ def api_login(request):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'access_token': token.key, 'expired_in': token.get_expires()})
+            response_data = {
+                'access_token': token.key,
+                'access_token_expires': (token.created + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+            }
+            return JsonResponse(response_data)
         else:
-            return Response({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
+            return JsonResponse({'error': 'Email and Password NOT MATCH'}, status=400)
 
 # 로그아웃 API
 @api_view(['POST'])
