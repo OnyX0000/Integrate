@@ -67,10 +67,10 @@ def register(request):
         try:
             user = User.objects.create_user(username=username, password=password, email=email)
         except IntegrityError as e:
-            messages.error(request, '이미 등록된 이메일입니다.')
+            messages.error(request, 'Already Registerd Email')
             return redirect('register')
         else:
-            messages.success(request, '회원가입이 완료되었습니다. 로그인해주세요.')
+            messages.success(request, 'Register Succes. Login Plaese')
             return redirect('login')
     return render(request, 'register.html')
 
@@ -86,14 +86,14 @@ def user_login(request):
             expires_at = token.created + timedelta(days=1)
             response_data = {
                 'access_token': token_key,
-                'access_token_expires': expires_at.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+                'access_token_expires': (token.created + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
             }
             return JsonResponse(response_data)
         else:
-            return JsonResponse({'error': '이메일과 비밀번호가 일치하지 않습니다.'}, status=400)
+            return JsonResponse({'error': 'Email and Password NOT MATCH.'}, status=400)
     elif request.method == 'GET':
         return render(request, 'login.html')
-    return JsonResponse({'error': 'POST 요청이 필요합니다.'}, status=400)
+    return JsonResponse({'error': 'Write your Email and Password.'}, status=400)
 
 class CustomAuthToken(ObtainAuthToken):
     def custom_auth_token(self, request, *args, **kwargs):
