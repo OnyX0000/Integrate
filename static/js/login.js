@@ -24,12 +24,13 @@ function login() {
                 return response.json();
             } else if (response.status === 401) {
                 alert("잘못된 아이디 혹은 비밀번호를 입력하셨습니다.");
-                throw new Error('로그인 실패');
+                console.log('로그인 실패')
             } else {
                 throw new Error('에러 발생');
             }
         })
         .then(data => {
+            console.log(data)
             if (data && data.token) {
                 localStorage.setItem('access_token', data.token);
                 localStorage.setItem('expired_in', data.expired_in);

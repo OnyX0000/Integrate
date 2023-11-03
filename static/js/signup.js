@@ -45,7 +45,7 @@ function signUp(){
         return response.json();
     } else if (response.status === 403) {
         // Handle CSRF token length error 수정
-        alert("CSRF 토큰의 길이가 잘못되었습니다.");
+        console.log("CSRF 토큰의 길이가 잘못되었습니다.");
     } else if (response.status === 401) {
         alert("잘못된 아이디 혹은 비밀번호를 입력하셨습니다.");
     } else {
