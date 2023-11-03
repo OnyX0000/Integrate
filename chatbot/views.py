@@ -136,7 +136,7 @@ def button_law(request):
         result2 = law_search(content)
     
         if result2 is not None:
-            return JsonResponse({"content": result2["law_content"], "status": 200}, status=200)
+            return JsonResponse({"data": {"content": result2["law_content"], "status":200}})
         else:
             return JsonResponse({"error": "Law not found"}, status=404)
         
@@ -180,7 +180,7 @@ def button_prec(request) :
         result2 = prec_search(prec)
         
         if result2 is not None:   
-            return JsonResponse({"prec_content": result2}, status=200)
+            return JsonResponse({"data": {"prec_content": result2, "status": 200}})
         else:
             return JsonResponse({"error": "Prec not found"}, status=404)
         

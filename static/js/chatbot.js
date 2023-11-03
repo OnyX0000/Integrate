@@ -192,7 +192,7 @@ function checkPrec(data){
     })
     .then((data)=>{
         if (data && data.prec_content) {
-            addMessage_com_prec(data.prec_content);
+            addMessage_com_prec(data.data.prec_content);
         } else {
             console.log("No 'prec_content' found in response data.");
         }
