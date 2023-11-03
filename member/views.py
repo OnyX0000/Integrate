@@ -87,15 +87,6 @@ def user_login(request):
             return redirect('login')  # 로그인 실패 시 다시 로그인 페이지로 이동
     return render(request, 'login.html')
 
-class CustomAuthToken(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data,
-                                           context={'request': request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({'token': token.key})
 
 @login_required
 def user_logout(request):
@@ -132,3 +123,14 @@ def user_delete(request):
         return render(request, 'user_delete.html', {'is_deleted': True})
     
     return render(request, 'user_delete.html', {'is_deleted': False})
+
+    
+class CustomAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key})
