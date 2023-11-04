@@ -8,7 +8,7 @@ function signUp(){
     const userPW = document.getElementById('input-pw').value;
     const confirmPW = document.getElementById('input-pw-cf').value;
 
-    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value; // 수정
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
     token = localStorage.getItem('access_token');
 
@@ -28,11 +28,11 @@ function signUp(){
     }
     else{
         const formData = new FormData();
-        fetch('/register/',{ // member/register/ -> /regiseter/ 수정
+        fetch('/api/register/',{
             method:"POST",
             headers:{
-                'Content-Type': 'application/JSON',
-                'X-CSRFToken': csrfToken // 수정
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
             },
             body: JSON.stringify({
                 username: userName,
@@ -41,20 +41,23 @@ function signUp(){
             })
         })
         .then(response=>{
-            if(response.statur==200){
-                return response.json;
+            if(response.status==200){
+                return response.json();
             }
             else if(response.status==400){
-                alert("이미 가입된 이메일 입니다.");
+                alert("Already Registerd Email.");
             }else{
                 throw new Error('에러 발생');
             }
         }).catch((error)=>console.log(error))
         .then((data)=>{
-            if(data.message=='회원가입 성공'){
-                alert('회원가입이 완료되었습니다.')
+            console.log(data);
+            if(data.message=='Register Success'){
+                alert('Register Success.')
                 window.location.href='../html/login.html'
+            } else if (data.error === 'Already Registered Email') {
+                alert('Already Registered Email.');
             }
-        })
+        });
     }
 }

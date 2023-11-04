@@ -70,7 +70,7 @@ def register(request):
             messages.error(request, 'Already Registerd Email')
             return redirect('register')
         else:
-            messages.success(request, 'Register Succes. Login Plaese')
+            messages.success(request, 'Register Succes. Login Please')
             return redirect('login')
     return render(request, 'register.html')
 

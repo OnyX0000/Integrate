@@ -14,22 +14,56 @@ from allauth.socialaccount.helpers import render_authentication_error
 
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError
+
+import json
+from datetime import datetime, timedelta
+
+# 회원가입 API
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def api_register(request):
+    if request.method == 'POST':
+        try:
+            request_data = json.loads(request.body)
+            username = request_data.get('username')
+            email = request_data.get('email')
+            password = request_data.get('password')
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON data in the request'}, status=400)
+        try:
+            user = User.objects.create_user(username=username, password=password, email=email)
+        except IntegrityError as e:
+            return JsonResponse({'error': 'Already Registered Email'}, status=400)
+        return JsonResponse({'message': 'Register Success'})
+    return JsonResponse({'error': 'Invalid Request'}, status=400)
 
 # 로그인 API
+@api_view(['POST'])
 def api_login(request):
     if request.method == 'POST':
-        email = request.data.get('email')
-        password = request.data.get('password')
+        try:
+            request_data = json.loads(request.body)
+            email = request_data.get('email')
+            password = request_data.get('password')
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON data in the request'}, status=400)
         user = authenticate(request, username=email, password=password)
         if user is not None:
+            login(request, user)
             token, created = Token.objects.get_or_create(user=user)
+            token_key = token.key
+            expires_at = token.created + timedelta(days=1)
             response_data = {
-                'access_token': token.key,
+                'access_token': token_key,
                 'access_token_expires': (token.created + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
             }
             return JsonResponse(response_data)
         else:
             return JsonResponse({'error': 'Email and Password NOT MATCH'}, status=400)
+    else:
+        return JsonResponse({'error': 'POST request is required.'}, status=400)
 
 # 로그아웃 API
 @api_view(['POST'])
@@ -39,21 +73,6 @@ def api_logout(request):
         return JsonResponse({'message': '로그아웃 성공'})
     else:
         return JsonResponse({'error': '로그인되어 있지 않습니다.'}, status=400)
-
-# 회원가입 API
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def api_register(request):
-    if request.method == 'POST':
-        username = request.data.get('username')
-        password = request.data.get('password')
-        email = request.data.get('email')
-        try:
-            user = User.objects.create_user(username=username, password=password, email=email)
-        except IntegrityError as e:
-            return JsonResponse({'error': '이미 등록된 이메일입니다.'}, status=400)
-        else:
-            return JsonResponse({'message': '회원가입이 완료되었습니다. 로그인해주세요.'})
 
 # 관리자 모드 API
 @api_view(['GET'])
