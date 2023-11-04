@@ -6,7 +6,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from member import views as member_views
 from chatbot import views as chatbot_views
-from member.api_views import api_login, api_register
+from member.api_views import api_login
+from member.api_views import api_register
 
 urlpatterns = [
     
@@ -30,6 +31,7 @@ urlpatterns = [
     # api_urls 
     path('api/login/', api_login, name='api_login'),
     path('api/register/', api_register, name='api_register'),
+    # path('api/token/', obtain_auth_token, name='api_token'),
 
     # 로그인 성공 시 홈 화면으로 리다이렉트하는 URL 패턴 추가
     path('home/', member_views.home, name='home_redirect'),
