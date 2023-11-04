@@ -7,15 +7,15 @@ function login() {
     } else {
         const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
-        fetch('/api/login/', { // /api/login/
+        fetch('/login/', { // /api/login/
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
+                'Content-Type': 'application/json'
+                // 'X-CSRFToken': csrfToken,
             },
             body: JSON.stringify({
-                "email": userID,
-                "password": userPW, // "둘 다 따옴표 안에 수정"
+                email: userID,
+                password: userPW, // "둘 다 따옴표 안에 수정"
             }),
         })
         .then(response => {
