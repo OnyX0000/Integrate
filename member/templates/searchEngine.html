@@ -3,22 +3,35 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../static/css/searchEngine.css" rel="stylesheet">
+        <link href="{% static 'css/searchEngine.css' %}" rel="stylesheet">
+        <!-- <link href = "../css/searchEngine.css" rel = "stylesheet"> -->
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
         <title>LOWLAW</title>
     </head>
     <body>
         <header class="header">
             <div class="header-logo-container">
-                <a href=""><img class="header-logo" src="../static/src/logo-header2.png"></a>
+                <a href=""><img class="header-logo" src="{% static 'src/logo-header2.png' %}"></a> 
+                <!-- <a href=""><img class="header-logo" src="../src/logo-header2.png"></a>  -->
             </div>
             <div class="header-menu-container">
                 <a href="" class="header-search">검색엔진</a>
                 <a href="" class="header-chatbot">AI챗봇</a>
             </div>
         </header>
+        <main>
+            <h1>검색 엔진</h1>
+            <div id = "message_input_container" class = "message_input_container">
+                <textarea rows = "1" class = "message_input" id = "message_input" placeholder="검색어를 입력해주세요"></textarea>
+                <img id = "message_btn" class = "message_btn" src = "../src/iconamoon_search-bold.png">
+            </div>
+            <div id = 'result-container' class = 'result-container'>
+            </div>
+        </main>
     </body>
-    <footer class="footer">
+    <footer class = "footer">
         <p>(C) 2023. LOWLAW. All rights reserved.</p>
     </footer>
+    <!-- <script src="../js/searchEngine.js"></script>  -->
+    <script src="{% static 'js/searchEngine.js' %}?v=2"></script>
 </html>
