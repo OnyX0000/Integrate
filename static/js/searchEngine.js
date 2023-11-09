@@ -89,7 +89,6 @@ function submit(message){
 //         },
 //         "status": 200
 // }
-        result_print(data);
 
 }
 
