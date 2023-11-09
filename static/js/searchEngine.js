@@ -30,6 +30,7 @@ function submit(message){
     }).catch((error)=>console.log(error))
     .then((data=>{
         result_print(data)
+        console.log(data)
     }))
 //     data = {
 //         "law": {
@@ -94,6 +95,7 @@ function submit(message){
 
 function result_print(data){
     var container = document.getElementById('result-container');
+    container.innerHTML = '';
 
     var related_law_container = document.createElement('div');
     related_law_container.classList.add('related_law_container');
