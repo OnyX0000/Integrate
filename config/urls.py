@@ -30,7 +30,7 @@ urlpatterns = [
     path('chatbot/', chatbot_views.chatbot, name='chatbot'),
 
     path('searchengine/', se_views.searchengine, name='searchengine'),
-    path('search_engine', se_views.search_engine, name='search_engine'),
+    #path('search_engine', se_views.search_engine, name='search_engine'),
 
     # api_urls 
     path('api/login/', api_login, name='api_login'),
