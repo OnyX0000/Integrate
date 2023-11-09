@@ -16,8 +16,8 @@ textarea.addEventListener("keydown", (e) => {
     }
 });
 function submit(message){
-    fetch('/searchEngine/',{
-        methot:'POST',
+    fetch('/search/',{
+        method:'POST',
         header:{
             'Content-Type' : 'application/json'
         },

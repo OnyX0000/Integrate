@@ -35,7 +35,10 @@ engine_name_2 = 'prec-search'
 def searchengine(request):
     if request.method == 'GET':
         return render(request, 'searchEngine.html')
+    else:
+        return HttpResponse(status=200)
 
+@csrf_exempt
 def search(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -47,19 +50,22 @@ def search(request):
             return JsonResponse({"error": "입력이 없습니다"}, status=400)
         
         # 검색어로 법령과 판례를 각각 검색
-        law_result = law_search(user_input)
-        prec_result = prec_search(user_input)
+        law = law_search(user_input)
+        prec = prec_search(user_input)
 
         # 결과를 JSON 형태로 가공
         result_data = {
-            "law": law_result,
-            "prec": prec_result,
+            "law": law,
+            "prec": prec,
             "status": 200  # 상태 코드, 성공적으로 처리됐을 때는 200을 반환
         }
+
+        print(result_data)
 
         # JsonResponse로 결과 전송
         return JsonResponse(result_data)
 
+@csrf_exempt
 def law_search(law): # App Search에서 참조법령 찾기
     # 검색 옵션 설정 (score 점수 내림차순 정렬, 상위 1개 결과)
     search_options = {
@@ -103,6 +109,7 @@ def law_search(law): # App Search에서 참조법령 찾기
     
     return law_results
 
+@csrf_exempt
 def prec_search(prec): # App Search 에서 참조판례 찾기
     # 검색 옵션 설정 (score 점수 내림차순 정렬, 상위 3개 결과)
     search_options = {
