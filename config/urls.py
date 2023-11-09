@@ -6,6 +6,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from member import views as member_views
 from chatbot import views as chatbot_views
+from searchengine import views as se_views
 from member.api_views import api_login
 from member.api_views import api_register
 
@@ -27,6 +28,9 @@ urlpatterns = [
     path('button_law/', chatbot_views.button_law, name='button_law'),
     path('button_prec/', chatbot_views.button_prec, name='button_prec'),
     path('chatbot/', chatbot_views.chatbot, name='chatbot'),
+
+    path('searchengine/', se_views.searchengine, name='searchengine'),
+    path('search_engine', se_views.search_engine, name='search_engine'),
 
     # api_urls 
     path('api/login/', api_login, name='api_login'),
