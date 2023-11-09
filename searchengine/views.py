@@ -29,8 +29,8 @@ client = Client(
 engine_name_1 = 'law-content'
 engine_name_2 = 'prec-search'
 
-def home(request):
-    return render(request, 'main.html')
+# def home(request):
+#     return render(request, 'main.html')
 
 def searchengine(request):
     if request.method == 'GET':

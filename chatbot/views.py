@@ -32,8 +32,8 @@ def cached_model():
 
 model = cached_model()
 
-def home(request):
-    return render(request, 'main.html')
+# def home(request):
+#     return render(request, 'main.html')
 
 def chatbot(request):
     if request.method == 'GET':
