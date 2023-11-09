@@ -1,15 +1,20 @@
 const textarea = document.getElementById("message_input");
 const sendbtn = document.getElementById('message_btn');
-sendbtn.addEventListener("click",()=>{
-    submit(textarea.value);
-})
-textarea.addEventListener("keydown",(e)=>{
-    if(e.keyCode == '13'){
-        if(!e.shiftKey){
-            submit(textarea.value);
-        }
+let hasSubmitted = false;
+
+sendbtn.addEventListener("click", () => {
+    if (!hasSubmitted) {
+        submit(textarea.value);
+        hasSubmitted = true;
     }
-})
+});
+
+textarea.addEventListener("keydown", (e) => {
+    if (!hasSubmitted && e.keyCode === 13 && !e.shiftKey) {
+        submit(textarea.value);
+        hasSubmitted = true;
+    }
+});
 function submit(message){
     fetch('/searchEngine/',{
         methot:'POST',
@@ -133,7 +138,7 @@ function result_print(data){
         law_specific.classList.add('jo');
         law_specific.textContent = law_data.law_specific;
 
-        var law_content = document.createElement('p');
+        var law_content = document.createElement('span');
         law_content.classList.add('content');
         law_content.textContent=law_data.law_content;
         
@@ -172,23 +177,53 @@ function result_print(data){
 
         var sentence_date = document.createElement('p');
         sentence_date.classList.add('sentence_date');
-        sentence_date.textContent = prec_data.sentenct_date;
+        sentence_date.textContent = prec_data.sentence_date;
 
         var court_name = document.createElement('p');
         court_name.classList.add('court_name');
         court_name.textContent = prec_data.court_name;
 
+        var content_container = document.createElement('div');
+        content_container.classList.add('content_container');
+        
         var prec_content = document.createElement('p');
         prec_content.classList.add('prec_content');
         prec_content.textContent = prec_data.prec_content;
+        content_container.append(prec_content)
+        
+        const maxlength = 300;
+
+        if(prec_content.textContent.length>maxlength){
+                const visibleText = prec_content.textContent.slice(0,maxlength);
+                const hiddenText = prec_content.textContent.slice(maxlength);
+                
+                prec_content.textContent = visibleText;
+
+                const moreLink = document.createElement('p');
+                moreLink.textContent = '더보기'
+                moreLink.classList.add('moreLink');
+                content_container.append(moreLink);
+                moreLink.addEventListener('click',function(){
+                        if(moreLink.textContent=='더보기'){
+                                prec_content.textContent = visibleText+hiddenText;
+                                moreLink.textContent='줄이기';
+                        }
+                        else{
+                                prec_content.textContent = visibleText;
+                                moreLink.textContent = '더보기';
+                        }
+                });
+
+        }
 
         result_prec_container_small_2.append(case_type);
         result_prec_container_small_2.append(sentence_date);
         result_prec_container_small_2.append(court_name);
+        result_prec_container_small_2.append(content_container);
 
         result_prec_container.append(result_prec_container_small_1);
         result_prec_container.append(result_prec_container_small_2);
-        result_prec_container.append(prec_content);
+        result_prec_container.append(content_container);
 
         related_prec_container.append(result_prec_container);
     }
