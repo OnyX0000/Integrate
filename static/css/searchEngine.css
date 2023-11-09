@@ -74,10 +74,10 @@ header{
     text-decoration-line: none;
     margin : 1rem;
 }
-.header-chatbot{
+.header-search{
     color:#F90;
 }
-.header-search{
+.header-chatbot{
     color:black;
 }
 footer{
