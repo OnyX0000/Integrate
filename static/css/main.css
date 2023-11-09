@@ -53,6 +53,7 @@ header{
     border-bottom:solid 1px #E6E6E6;
     margin-top:1rem;
     margin-bottom:1rem;
+    padding-bottom:1rem;
 }
 .header-logo-container{
     order: 1;
@@ -61,20 +62,20 @@ header{
     order: 2;
 }
 .header-logo{
-    width : 8.75rem;
+    width : 12rem;
 }
 .header-menu-container a{
     font-family: KoPubWorldDotum_Pro;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
     line-height: normal;
     text-decoration-line: none;
-    margin : 0.7rem;
+    margin : 1rem;
 }
 .header-chatbot{
-    color:#F90;
+    color:black;
 }
 .header-search{
     color:black;
@@ -102,15 +103,19 @@ footer p{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top:2rem;
-    margin-bottom: 2rem;
+    margin : 0 auto;
+    /* margin-top:2rem;
+    margin-bottom: 2rem; */
+    height: 28rem;
 }
+
 .introduce-left-container{
     gap:2.5rem;
+    margin-right:-1rem;
 }
 .introduce-bigFont{
     font-family: Pretendard;
-    font-size : 1.8rem;
+    font-size : 2rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -118,7 +123,7 @@ footer p{
 .introduce-smallFont{
     font-family: 'NanumGothic';
     color:#737373;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 200;
     
@@ -127,7 +132,8 @@ footer p{
     width: 11.5rem;
 }
 .introduce-img{
-    width: 14rem;
+    width: 22rem;
+    margin-left:-2rem;
 }
 .button-container{
     background-color: #F7F6F6;
@@ -153,6 +159,9 @@ footer p{
     margin-top: 2.8rem;
     margin-bottom: 2rem;
 }
+.introduce-search-container{
+    margin-bottom: 2rem;
+}
 .introduce-search-container img{
     margin: auto;
     display:block;
@@ -165,7 +174,6 @@ footer p{
     width: 37.5rem;
     text-align: center;
 }
-
 
 .introduce-title{
     font-family: 'NanumGothicBold';
@@ -214,3 +222,13 @@ footer p{
     text-align:center;
 }
 
+[data-scroll] {
+    opacity: 0;
+    will-change:transform, scale, opacity;
+    transform: scale(0.93);
+    transition: all 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+[data-scroll="in"] {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}

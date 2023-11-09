@@ -40,7 +40,6 @@
 }
 body{
     font-family: 'NanumGothic';
-    height:100vh;
 }
 body div{
     padding-left: 1rem;
@@ -54,6 +53,7 @@ header{
     border-bottom:solid 1px #E6E6E6;
     margin-top:1rem;
     margin-bottom:1rem;
+    padding-bottom:1rem;
 }
 .header-logo-container{
     order: 1;
@@ -62,18 +62,23 @@ header{
     order: 2;
 }
 .header-logo{
-    width : 8.75rem;
+    width : 12rem;
 }
-.header-menu{
+.header-menu-container a{
     font-family: KoPubWorldDotum_Pro;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    color : black;
     line-height: normal;
     text-decoration-line: none;
-    margin : 0.7rem;
+    margin : 1rem;
+}
+.header-chatbot{
+    color:#F90;
+}
+.header-search{
+    color:black;
 }
 footer{
     background-color: black;
