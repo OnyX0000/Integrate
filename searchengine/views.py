@@ -40,11 +40,13 @@ def searchengine(request):
 
 @csrf_exempt
 def search(request):
+    print("Enterint search view")
     if request.method == 'POST':
         data = json.loads(request.body)
         user_input = data.get('user_input', "")
         
         print(user_input)
+        print(request.body)
         
         if not user_input:
             return JsonResponse({"error": "입력이 없습니다"}, status=400)
@@ -55,8 +57,8 @@ def search(request):
 
         # 결과를 JSON 형태로 가공
         result_data = {
-            "law": law,
-            "prec": prec,
+            "law": [law_entry for law_entry in law.values()],
+            "prec": [prec_entry for prec_entry in prec.values()],
             "status": 200  # 상태 코드, 성공적으로 처리됐을 때는 200을 반환
         }
 
