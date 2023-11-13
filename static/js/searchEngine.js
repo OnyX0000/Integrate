@@ -204,17 +204,7 @@ function result_print(data){
                 moreLink.textContent = '더보기'
                 moreLink.classList.add('moreLink');
                 content_container.append(moreLink);
-                moreLink.addEventListener('click',function(){
-                        if(moreLink.textContent=='더보기'){
-                                prec_content.textContent = visibleText+hiddenText;
-                                moreLink.textContent='줄이기';
-                        }
-                        else{
-                                prec_content.textContent = visibleText;
-                                moreLink.textContent = '더보기';
-                        }
-                });
-
+                moreLink.addEventListener('click', createToggleFunction(moreLink, prec_content, visibleText, hiddenText));
         }
 
         result_prec_container_small_2.append(case_type);
@@ -231,4 +221,16 @@ function result_print(data){
     container.append(related_law_container);
     container.append(related_prec_container);
 
+}
+
+function createToggleFunction(moreLink, prec_content, visibleText, hiddenText) {
+    return function () {
+        if (moreLink.textContent === '더보기') {
+            prec_content.textContent = visibleText + hiddenText;
+            moreLink.textContent = '줄이기';
+        } else {
+            prec_content.textContent = visibleText;
+            moreLink.textContent = '더보기';
+        }
+    };
 }
