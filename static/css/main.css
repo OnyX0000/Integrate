@@ -40,10 +40,8 @@
 }
 body{
     font-family: 'NanumGothic';
-}
-body div{
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 0;
+    margin: 0;
 }
 header{
     display:flex;
@@ -52,8 +50,9 @@ header{
     background-color: white;
     border-bottom:solid 1px #E6E6E6;
     margin-top:1rem;
-    margin-bottom:1rem;
     padding-bottom:1rem;
+    padding-left : 1rem;
+    padding-right: 1rem;
 }
 .header-logo-container{
     order: 1;
@@ -82,8 +81,7 @@ header{
 }
 footer{
     background-color: black;
-    margin-left:-0.5rem;
-    margin-right:-0.5rem;
+
 }
 footer p{
     padding-top:3rem;
@@ -94,58 +92,25 @@ footer p{
 }
 /*여기까지*/
 .gray-box{
-    margin-left: -0.5rem;
-    margin-right:-0.5rem;
     background-color: #F7F6F6;
     height:3rem;
 }
-.introduce-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin : 0 auto;
-    /* margin-top:2rem;
-    margin-bottom: 2rem; */
-    height: 28rem;
+.main{
+    width: 100vw;
+    margin-bottom: -1rem;
 }
-
-.introduce-left-container{
-    gap:2.5rem;
-    margin-right:-1rem;
-}
-.introduce-bigFont{
-    font-family: Pretendard;
-    font-size : 2rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-.introduce-smallFont{
-    font-family: 'NanumGothic';
-    color:#737373;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 200;
-    
-}
-.joinButton{
-    width: 11.5rem;
-}
-.introduce-img{
-    width: 22rem;
-    margin-left:-2rem;
+.gray-container, .introduce-search-container img{
+    max-width:95vw;
 }
 .button-container{
     background-color: #F7F6F6;
-    margin-left:-0.5rem;
-    margin-right:-0.5rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
     display:flex;
     justify-content: center;
     gap:1.5rem;
     padding-top:2rem;
     padding-bottom:2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .button-container a{
     width: 48%;
@@ -156,7 +121,6 @@ footer p{
 
 .introduce-explain-container{
     gap:2rem;
-    margin-top: 2.8rem;
     margin-bottom: 2rem;
 }
 .introduce-search-container{
@@ -198,8 +162,6 @@ footer p{
     font-weight: 100;
 }
 .gray-container{
-    margin-left: -1.5rem;
-    margin-right:-1.5rem;
     padding-left:2rem;
     padding-right:2rem;
     padding-top: 3.2rem;
@@ -221,7 +183,48 @@ footer p{
     margin-top: 4rem;
     text-align:center;
 }
+.introduce-explain-container, introduce-search-container p{
+    margin-left: 2rem;
+    line-height: 2rem;
+}
 
+.signup-container{
+    background-color: #F7F6F6;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-signup{
+    width: 94%;
+}
+.explain-start{
+    background-color: #F7F6F6;
+    padding-top: 4rem;
+    padding-bottom : 4rem; 
+}
+.explain-start p{
+    text-align:center;
+    font-family: Pretendard;
+    padding: 0;
+    margin: 0;
+    margin-top:1rem;
+    margin-bottom: 1rem;
+}
+.explain-bigFont{
+    font-size: 2rem;
+    font-weight: 700;
+}
+.explain-smallFont{
+    font-size: 1.5rem;
+    font-weight: 300;
+}
 [data-scroll] {
     opacity: 0;
     will-change:transform, scale, opacity;
