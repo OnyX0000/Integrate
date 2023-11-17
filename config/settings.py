@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-u#(fgp7hh6tk+7b*zfe63ceiz_pd58scss($1=8_@2ld25u!+&
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['3.39.112.142']
 
 # static directory 등록
 STATIC_URL = '/static/'
