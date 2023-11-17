@@ -65,7 +65,7 @@ header{
 }
 .header-menu-container a{
     font-family: KoPubWorldDotum_Pro;
-    font-size: 1.5rem;
+    font-size: 3vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -99,8 +99,8 @@ footer p{
     width: 100vw;
     margin-bottom: -1rem;
 }
-.gray-container, .introduce-search-container img{
-    max-width:95vw;
+.ask-join-btn{
+    width:95%;
 }
 .button-container{
     background-color: #F7F6F6;
@@ -131,11 +131,11 @@ footer p{
     display:block;
 }
 .img-searchbar{
-    width:46rem;
+    width:80vw;
     text-align: center;
 }
 .img-web{
-    width: 37.5rem;
+    width: 75vw;
     text-align: center;
 }
 
@@ -174,10 +174,12 @@ footer p{
 }
 .orange-chat{
     align-self:flex-end;
+    width: 60%;
 }
 .white-chat{
     margin-top:3.5em;
     align-self: flex-start;
+    width: 60%;
 }
 .ask-join-btn{
     margin-top: 4rem;

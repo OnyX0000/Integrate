@@ -15,17 +15,17 @@
                 <a href=""><img class="header-logo" src="{% static 'src/logo-header2.png' %}"></a>
             </div>
             <div class="header-menu-container">
-                <a href="" class="header-search">검색엔진</a>
-                <a href="" class="header-chatbot">AI챗봇</a>
+                <a href="/searchengine/" class="header-search">검색엔진</a>
+                <a href="/chatbot/" class="header-chatbot">AI챗봇</a>
             </div>
         </header>
         <img class='main' src="{% static 'src/main.png' %}">
         <div class='button-container'>
-            <a href=""><img class='btn-chatbot' src="{% static 'src/btn-chatbot.png' %}"></a>
-            <a href=""><img class='btn-searchEngine' src="{% static 'src/btn-searchEngine.png' %}"></a>
+            <a href="/chatbot/"><img class='btn-chatbot' src="{% static 'src/btn-chatbot.png' %}"></a>
+            <a href="/searchengine/"><img class='btn-searchEngine' src="{% static 'src/btn-searchEngine.png' %}"></a>
         </div>
         <div class = 'signup-container'>
-            <a href="/signup/"><img class = 'btn-signup' src="{% static 'src/sign_button.png' %}"></a>
+            <a href="/login/"><img class = 'btn-signup' src="{% static 'src/sign_button.png' %}"></a>
         </div>
         <div class='gray-box'></div>
         <div class = 'explain-start'>
@@ -43,7 +43,7 @@
             <div class='gray-container'>
                 <img data-scroll class='orange-chat' src="{% static 'src/orange-chat.png' %}">
                 <img data-scroll class='white-chat' src="{% static 'src/white-chat.png' %}">
-                <img data-scroll class='ask-join-btn' src="{% static 'src/join-button2.png' %}">
+                <a href = '/chatbot/'><img data-scroll class='ask-join-btn' src="{% static 'src/join-button2.png' %}"></a>
             </div>
         </div>
         <div class="introduce-search-container">

@@ -21,11 +21,11 @@
 <body>
     <header class="header">
         <div class="header-logo-container">
-            <a href=""><img class="header-logo" src="{% static 'src/logo-header2.png' %}"></a> 
+            <a href=""><img class="header-logo" src="{% static 'src/logo-header2.png' %}"></a>
         </div>
         <div class="header-menu-container">
-            <a href="" class="header-menu">검색엔진</a>
-            <a href="" class="header-menu">AI챗봇</a>
+            <a href="/searchengine/" class="header-search">검색엔진</a>
+            <a href="/chatbot/" class="header-chatbot">AI챗봇</a>
         </div>
     </header>
     <div class="login-container">
@@ -45,7 +45,7 @@
         </div>
         <div class="login-btn-container">
             <button type="button" class="login-btn" id="login-btn" onclick="login()">로그인</button>
-            <a href="{% url 'register' %}"><button class="signup-btn" id="signup-btn">회원가입</button></a>
+            <a href="/register/"><button class="signup-btn" id="signup-btn">회원가입</button></a>
         </div>
     </div>
     <script src="{% static 'js/login.js' %}?v=2"></script>
