@@ -14,8 +14,8 @@ textarea.addEventListener("keydown", (e) => {
     if (!hasSubmitted && e.keyCode === 13 && !e.shiftKey) {
         
         hasSubmitted = true;
-        submit(textarea.value);
     }
+    submit(textarea.value);
 });
 function submit(message){
     fetch('/search/',{
