@@ -81,7 +81,7 @@ header{
 }
 footer{
     background-color: black;
-
+    padding: 0rem;
 }
 footer p{
     padding-top:3rem;
