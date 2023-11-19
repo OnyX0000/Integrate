@@ -3,19 +3,15 @@ const sendbtn = document.getElementById('message_btn');
 let hasSubmitted = false;
 
 sendbtn.addEventListener("click", () => {
-    if (!hasSubmitted) {
-        
-        hasSubmitted = true;
-    }
     submit(textarea.value);
 });
 
 textarea.addEventListener("keydown", (e) => {
-    if (!hasSubmitted && e.keyCode === 13 && !e.shiftKey) {
-        
+    if (e.keyCode === 13 && !e.shiftKey) {
+        submit(textarea.value);
         hasSubmitted = true;
     }
-    submit(textarea.value);
+    
 });
 function submit(message){
     fetch('/search/',{
