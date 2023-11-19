@@ -134,11 +134,14 @@ h1{
     font-size:20px;
     resize:none;
     max-height:3.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .message_btn{
-    width:2.8rem;
-    height:2.8rem;
+    width:2rem;
+    height:2rem;
+    padding:0.5rem;
     order:2;
 }
 .message_container{
