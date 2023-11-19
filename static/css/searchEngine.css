@@ -148,7 +148,6 @@ h3{
     font-family: 'NanumGothicBold';
     font-size:1.75rem;
     margin-top: 4rem;
-    margin-left:1rem;
 }
 .name{
     font-family: 'KoPubWorldDotum';
@@ -174,7 +173,7 @@ h3{
     align-items:center;
     margin-bottom: -1.3rem;
 }
-.related_law_container, related_prec_container{
+.related_law_container, .related_prec_container{
     margin-left : 2rem;
     margin-right: 2rem;
 }
