@@ -108,7 +108,7 @@ h1{
     padding-right: 1.5rem;
 }
 .message_container{
-    height:76%;
+    height:76vh;
 }
 .message_input_div{
     display: flex;

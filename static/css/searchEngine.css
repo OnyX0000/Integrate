@@ -103,8 +103,6 @@ h1{
     margin-bottom: 3rem;
 }
 .gray-line{
-    margin-left: -2.5rem;
-    margin-right:-2.5rem;
     background-color: #F7F6F6;
     height:0.25rem;
 }
@@ -122,6 +120,8 @@ h1{
     justify-content: space-between;
     align-items:center;
     margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 .message_input{
     border:none;
@@ -131,6 +131,8 @@ h1{
     resize:none;
     max-height:3.75rem;
     background-color: #F4F4F4;
+    padding-left : 1rem;
+    padding-right : 1rem;
 }
 
 .message_btn{
@@ -170,8 +172,11 @@ h3{
 .result_prec_container_small_1, .result_prec_container_small_2{
     display:flex;
     align-items:center;
-    margin-left : -1rem;
     margin-bottom: -1.3rem;
+}
+.related_law_container, related_prec_container{
+    margin-left : 2rem;
+    margin-right: 2rem;
 }
 
 .result_prec_container_small_1 p{
@@ -184,8 +189,4 @@ h3{
     font-family: 'KoPubWorldDotum';
     font-size: 1rem;
     font-weight: 700;
-    margin-right: 1rem;
-}
-.content_container{
-    margin-left: -1rem;
 }
