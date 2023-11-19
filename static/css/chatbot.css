@@ -74,21 +74,22 @@ header{
     margin : 1rem;
 }
 .header-chatbot{
-    color:#F90;
+    color:black;
 }
 .header-search{
-    color:black;
+    color:#F90;
 }
 footer{
     background-color: black;
-    padding : 0rem;
-    margin: 0rem;
+    padding: 0rem;
+    margin: 0px;
 }
 footer p{
     padding-top:3rem;
     padding-bottom: 3rem;
     color:white;
     text-align: center;
+    margin: 0px;
     
 }
 /*여기까지*/
@@ -109,7 +110,7 @@ h1{
     padding-right: 1.5rem;
 }
 .message_container{
-    height:76vh;
+    height:76%;
 }
 .message_input_div{
     display: flex;
