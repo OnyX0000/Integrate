@@ -74,10 +74,10 @@ header{
     margin : 1rem;
 }
 .header-chatbot{
-    color:black;
+    color:#F90;
 }
 .header-search{
-    color:#F90;
+    color:black;
 }
 footer{
     background-color: black;
@@ -130,7 +130,7 @@ h1{
     flex-grow:1;
     border:none;
     outline:none;
-    width:90%;
+    width:80%;
     font-size:20px;
     resize:none;
     max-height:3.75rem;
