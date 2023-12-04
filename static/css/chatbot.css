@@ -152,7 +152,7 @@ h1{
     padding-bottom: 4rem;
 }
 
-.user_message{
+.com_message{
     width:auto;
     max-width: 70%;
     padding:1rem 2.5rem;
@@ -160,7 +160,7 @@ h1{
     border-radius: 0rem 3.125rem 3.125rem 4rem;
     background:#F90;
 }
-.com_message{
+.user_message{
     width:auto;
     max-width: 70%;
     margin-left:auto;
