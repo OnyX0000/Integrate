@@ -110,6 +110,31 @@ def messages(request):
                     "law": related_law,
                     "prec": related_prec
                 }
+
+                # 사용자 입력 및 챗봇 응답을 Elasticsearch에 인덱싱
+                index_data = {
+                "user_input": user_input,
+                "chatbot_response": best_answer,
+                "timestamp": datetime.now().date().isoformat()
+                }
+            
+                index_name_save = "user_chat_history"
+
+                # 인덱스가 존재하지 않으면 매핑을 지정하여 인덱스 생성
+                if not es.indices.exists(index=index_name_save):
+                mapping = {
+                    "mappings": {
+                        "properties": {
+                            "user_input": {"type": "text", "fielddata": True},
+                            "chatbot_response": {"type": "text"},
+                            "timestamp": {"type": "date"}
+                        }
+                    }
+                }
+                es.indices.create(index=index_name_save, body=mapping)
+
+                # 데이터를 해당 인덱스에 추가
+                es.index(index=index_name_save, body=index_data)
             
             else:  # 챗봇의 답변 오류 메세지
                 best_answer = "질문에 대한 답변을 찾을 수 없어요. 상황에 대해서 정확히 입력해주세요!"
@@ -118,7 +143,7 @@ def messages(request):
                     "law": None,
                     "prec": None
                 }
-                    
+
             response_data = {
                 "best_answer": best_answer,
                 "legal_info": legal_info
