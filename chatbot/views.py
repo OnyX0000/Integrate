@@ -122,15 +122,15 @@ def messages(request):
 
                 # 인덱스가 존재하지 않으면 매핑을 지정하여 인덱스 생성
                 if not es.indices.exists(index=index_name_save):
-                mapping = {
-                    "mappings": {
-                        "properties": {
-                            "user_input": {"type": "text", "fielddata": True},
-                            "chatbot_response": {"type": "text"},
-                            "timestamp": {"type": "date"}
+                    mapping = {
+                        "mappings": {
+                            "properties": {
+                                "user_input": {"type": "text", "fielddata": True},
+                                "chatbot_response": {"type": "text"},
+                                "timestamp": {"type": "date"}
+                            }
                         }
                     }
-                }
                 es.indices.create(index=index_name_save, body=mapping)
 
                 # 데이터를 해당 인덱스에 추가
