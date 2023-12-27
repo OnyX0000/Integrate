@@ -61,11 +61,11 @@ header{
     order: 2;
 }
 .header-logo{
-    width : 12rem;
+    width : 30vw;
 }
 .header-menu-container a{
     font-family: KoPubWorldDotum_Pro;
-    font-size: 3vw;
+    font-size: 4vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -101,9 +101,9 @@ main{
 h1{
     font-family: 'NanumGothicBold';
     text-align: center;
-    font-size:2.5rem;
-    margin-top:3rem;
-    margin-bottom: 3rem;
+    font-size:6vw;
+    margin-top:8vh;
+    margin-bottom: 8vh;
 }
 .gray-line{
     background-color: #F7F6F6;
@@ -113,10 +113,11 @@ h1{
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .message_input_container{
     background-color: #F4F4F4;
-    width:90%;
+    width:85vw;
     border-radius:1.8rem;
     height:4rem;
     display:flex;
