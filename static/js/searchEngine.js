@@ -187,7 +187,8 @@ function result_print(data){
         
         var prec_content = document.createElement('p');
         prec_content.classList.add('prec_content');
-        var modifiedText = prec_data.prec_content.replace(']', ']<br><br>'); // 여기에 적절한 정규식을 사용하여 줄바꿈을 추가할 수 있습니다.
+        var modifiedText = prec_data.prec_content.replace(/\]/g, '] <br>');
+        modifiedText = modifiedText.replace(/\[/g, '<br>[');
         prec_content.innerHTML = modifiedText;
 
         content_container.append(prec_content);
