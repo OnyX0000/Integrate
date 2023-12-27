@@ -114,9 +114,9 @@ def messages(request):
 
                 # 사용자 입력 및 챗봇 응답을 Elasticsearch에 인덱싱
                 index_data = {
-                "user_input": user_input,
-                "chatbot_response": best_answer,
-                "timestamp": datetime.now().date().isoformat()
+                    "user_input": user_input,
+                    "chatbot_response": best_answer,
+                    "timestamp": datetime.now().date().isoformat()
                 }
             
                 index_name_save = "user_chat_history"
@@ -132,7 +132,7 @@ def messages(request):
                             }
                         }
                     }
-                es.indices.create(index=index_name_save, body=mapping)
+                    es.indices.create(index=index_name_save, body=mapping)
 
                 # 데이터를 해당 인덱스에 추가
                 es.index(index=index_name_save, body=index_data)
