@@ -62,11 +62,11 @@ header{
     order: 2;
 }
 .header-logo{
-    width : 12rem;
+    width : 30vw;
 }
 .header-menu-container a{
     font-family: KoPubWorldDotum_Pro;
-    font-size: 3vw;
+    font-size: 4vw;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -210,8 +210,8 @@ footer p{
 }
 .explain-start{
     background-color: #F7F6F6;
-    padding-top: 4rem;
-    padding-bottom : 4rem; 
+    padding-top: 30vh;
+    padding-bottom : 30vh; 
 }
 .explain-start p{
     text-align:center;
