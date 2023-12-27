@@ -1,4 +1,5 @@
 /* 공통 */
+
 @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -133,24 +134,24 @@ footer p{
     display:block;
 }
 .img-searchbar{
-    width:80vw;
+    width:90vw;
     text-align: center;
 }
 .img-web{
-    width: 75vw;
+    width: 90vw;
     text-align: center;
 }
 
 .introduce-title{
     font-family: 'NanumGothicBold';
     color:black;
-    font-size:1.75rem;
+    font-size:5vw;
     font-weight: 700;
 }
 .introduce-explain-bigFont{
     font-family: 'NanumGothicBold';
     color:black;
-    font-size:1.5rem;
+    font-size:5vw;
     font-weight: 600;
     text-align: center;
     margin-top: 4.5rem;
@@ -159,33 +160,32 @@ footer p{
 .introduce-explain{
     font-family: 'NanumGothic';
     color:#737373;
-    font-size:1.3rem;
+    font-size:4vw;
     font-style:normal;
     font-weight: 100;
 }
 .gray-container{
     padding-left:2rem;
     padding-right:2rem;
-    padding-top: 3.2rem;
-    padding-bottom: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
     background-color: #F7F6F6;
 
     display:flex;
     flex-direction: column;
     align-items: center;
+    gap:3rem;
 }
 .orange-chat{
     align-self:flex-end;
-    width: 60%;
+    width: 80vw;
 }
 .white-chat{
-    margin-top:3.5em;
     align-self: flex-start;
-    width: 60%;
+    width: 80vw;
 }
 .ask-join-btn{
-    margin-top: 4rem;
-    text-align:center;
+    width: 90vw;
 }
 .introduce-explain-container, introduce-search-container p{
     margin-left: 2rem;
@@ -222,11 +222,11 @@ footer p{
     margin-bottom: 1rem;
 }
 .explain-bigFont{
-    font-size: 2rem;
+    font-size: 5vw;
     font-weight: 700;
 }
 .explain-smallFont{
-    font-size: 1.5rem;
+    font-size: 4vw;
     font-weight: 300;
 }
 [data-scroll] {

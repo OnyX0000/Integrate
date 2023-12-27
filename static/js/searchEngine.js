@@ -187,8 +187,10 @@ function result_print(data){
         
         var prec_content = document.createElement('p');
         prec_content.classList.add('prec_content');
-        prec_content.textContent = prec_data.prec_content;
-        content_container.append(prec_content)
+        var modifiedText = prec_data.prec_content.replace(/\]/g, ']<br>'); // 여기에 적절한 정규식을 사용하여 줄바꿈을 추가할 수 있습니다.
+        prec_content.innerHTML = modifiedText;
+
+        content_container.append(prec_content);
         
         const maxlength = 300;
 
